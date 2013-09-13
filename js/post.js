@@ -9,7 +9,7 @@
             prefix: ''
         },
         browserPrefixes = 'webkit moz o ms khtml'.split(' ');
- 
+
     // check for native support
     if (typeof document.cancelFullScreen != 'undefined') {
         fullScreenApi.supportsFullScreen = true;
@@ -17,19 +17,18 @@
         // check for fullscreen support by vendor prefix
         for (var i = 0, il = browserPrefixes.length; i < il; i++ ) {
             fullScreenApi.prefix = browserPrefixes[i];
- 
+
             if (typeof document[fullScreenApi.prefix + 'CancelFullScreen' ] != 'undefined' ) {
                 fullScreenApi.supportsFullScreen = true;
- 
                 break;
             }
         }
     }
- 
+
     // update methods to do something useful
     if (fullScreenApi.supportsFullScreen) {
         fullScreenApi.fullScreenEventName = fullScreenApi.prefix + 'fullscreenchange';
- 
+
         fullScreenApi.isFullScreen = function() {
             switch (this.prefix) {
                 case '':
@@ -47,11 +46,11 @@
             return (this.prefix === '') ? document.cancelFullScreen() : document[this.prefix + 'CancelFullScreen']();
         }
     }
- 
+
     // jQuery plugin
     if (typeof jQuery != 'undefined') {
         jQuery.fn.requestFullScreen = function() {
- 
+
             return this.each(function() {
                 if (fullScreenApi.supportsFullScreen) {
                     fullScreenApi.requestFullScreen(this);
@@ -59,7 +58,7 @@
             });
         };
     }
- 
+
     // export api
     window.fullScreenApi = fullScreenApi;
 })();
@@ -124,8 +123,10 @@ var inZen = function(container,page,main) {
 
 	dotclear.zenMode = '1';
 
-	if (fullScreenApi.supportsFullScreen) {
-		fullScreenApi.requestFullScreen(document.documentElement);
+	if (dotclear.zenMode_FullScreen == '1') {
+		if (fullScreenApi.supportsFullScreen) {
+			fullScreenApi.requestFullScreen(document.documentElement);
+		}
 	}
 };
 
@@ -153,8 +154,10 @@ var outZen = function(container,page,main) {
 
 	dotclear.zenMode = '0';
 
-	if (fullScreenApi.supportsFullScreen && fullScreenApi.isFullScreen) {
-		fullScreenApi.cancelFullScreen(document.documentElement);
+	if (dotclear.zenMode_FullScreen == '1') {
+		if (fullScreenApi.supportsFullScreen && fullScreenApi.isFullScreen) {
+			fullScreenApi.cancelFullScreen(document.documentElement);
+		}
 	}
 };
 

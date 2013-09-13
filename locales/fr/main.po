@@ -1,6 +1,9 @@
 msgid ""
 msgstr ""
 
+msgid "Zen mode for editors"
+msgstr "Mode zen pour l'édition"
+
 msgid "Switch to zen mode"
 msgstr "Basculer dans le mode zen"
 

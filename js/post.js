@@ -1,3 +1,69 @@
+(function() {
+    var
+        fullScreenApi = {
+            supportsFullScreen: false,
+            isFullScreen: function() { return false; },
+            requestFullScreen: function() {},
+            cancelFullScreen: function() {},
+            fullScreenEventName: '',
+            prefix: ''
+        },
+        browserPrefixes = 'webkit moz o ms khtml'.split(' ');
+ 
+    // check for native support
+    if (typeof document.cancelFullScreen != 'undefined') {
+        fullScreenApi.supportsFullScreen = true;
+    } else {
+        // check for fullscreen support by vendor prefix
+        for (var i = 0, il = browserPrefixes.length; i < il; i++ ) {
+            fullScreenApi.prefix = browserPrefixes[i];
+ 
+            if (typeof document[fullScreenApi.prefix + 'CancelFullScreen' ] != 'undefined' ) {
+                fullScreenApi.supportsFullScreen = true;
+ 
+                break;
+            }
+        }
+    }
+ 
+    // update methods to do something useful
+    if (fullScreenApi.supportsFullScreen) {
+        fullScreenApi.fullScreenEventName = fullScreenApi.prefix + 'fullscreenchange';
+ 
+        fullScreenApi.isFullScreen = function() {
+            switch (this.prefix) {
+                case '':
+                    return document.fullScreen;
+                case 'webkit':
+                    return document.webkitIsFullScreen;
+                default:
+                    return document[this.prefix + 'FullScreen'];
+            }
+        }
+        fullScreenApi.requestFullScreen = function(el) {
+            return (this.prefix === '') ? el.requestFullScreen() : el[this.prefix + 'RequestFullScreen']();
+        }
+        fullScreenApi.cancelFullScreen = function(el) {
+            return (this.prefix === '') ? document.cancelFullScreen() : document[this.prefix + 'CancelFullScreen']();
+        }
+    }
+ 
+    // jQuery plugin
+    if (typeof jQuery != 'undefined') {
+        jQuery.fn.requestFullScreen = function() {
+ 
+            return this.each(function() {
+                if (fullScreenApi.supportsFullScreen) {
+                    fullScreenApi.requestFullScreen(this);
+                }
+            });
+        };
+    }
+ 
+    // export api
+    window.fullScreenApi = fullScreenApi;
+})();
+
 // utilities functions
 (function($) {
 	// Return all element not belonging to context
@@ -57,6 +123,10 @@ var inZen = function(container,page,main) {
 		.css('background-image','url(index.php?pf=zenEdit/img/zen-off.png)');
 
 	dotclear.zenMode = '1';
+
+	if (fullScreenApi.supportsFullScreen) {
+		fullScreenApi.requestFullScreen(document.documentElement);
+	}
 };
 
 var outZen = function(container,page,main) {
@@ -82,6 +152,10 @@ var outZen = function(container,page,main) {
 		.css('background-image','url(index.php?pf=zenEdit/img/zen-on.png)');
 
 	dotclear.zenMode = '0';
+
+	if (fullScreenApi.supportsFullScreen && fullScreenApi.isFullScreen) {
+		fullScreenApi.cancelFullScreen(document.documentElement);
+	}
 };
 
 var switchZen = function() {

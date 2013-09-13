@@ -1,0 +1,8 @@
+msgid ""
+msgstr ""
+
+msgid "Switch to zen mode"
+msgstr "Basculer dans le mode zen"
+
+msgid "Exit from zen mode"
+msgstr "Sortir du mode zen"

@@ -96,6 +96,7 @@ var inZen = function(container,page,main) {
 	if (dotclear.zenMode == '1') return;
 
 	// Get current status of some DOM element
+	dotclear.zenMode_body_fs = $('body').css('font-size');
 	dotclear.zenMode_body_tc = $('body').css('color');
 	dotclear.zenMode_body_bc = $('body').css('background-color');
 	dotclear.zenMode_page_bc = page.css('background-color');
@@ -105,7 +106,10 @@ var inZen = function(container,page,main) {
 
 	// Hack some CSS attributes
 	container.css('margin-top','4em');
-	$('body').css('color','rgb(101,101,101)').css('background-color','rgb(251,251,251)');
+	$('body')
+		.css('font-size','13px')
+		.css('color','rgb(101,101,101)')
+		.css('background-color','rgb(251,251,251)');
 	page.css('background-color','transparent');
 	main.css('background-color','transparent').css('background-image','none');
 
@@ -137,7 +141,10 @@ var outZen = function(container,page,main) {
 
 	// Restore some CSS attributes as before
 	container.css('margin-top',dotclear.zenMode_container_mt);
-	$('body').css('color',dotclear.zenMode_body_tc).css('background-color',dotclear.zenMode_body_bc);
+	$('body')
+		.css('font-size',dotclear.zenMode_body_fs)
+		.css('color',dotclear.zenMode_body_tc)
+		.css('background-color',dotclear.zenMode_body_bc);
 	page.css('background-color',dotclear.zenMode_page_bc);
 	main.css('background-color',dotclear.zenMode_main_bc).css('background-image',dotclear.zenMode_main_bi);
 

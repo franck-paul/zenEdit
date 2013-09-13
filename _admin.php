@@ -25,7 +25,7 @@ class zenEditBehaviors
 		"//<![CDATA[\n".
 		dcPage::jsVar('dotclear.msg.zenEditShow',__('Switch to zen mode')).
 		dcPage::jsVar('dotclear.msg.zenEditHide',__('Exit from zen mode')).
-		dcPage::jsVar('dotclear.zenMode_FullScreen','0').
+		dcPage::jsVar('dotclear.zenMode_FullScreen','1').
 		dcPage::jsVar('dotclear.zenMode','0').
 		"\n//]]>\n".
 		"</script>\n".

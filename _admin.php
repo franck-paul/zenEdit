@@ -65,7 +65,7 @@ class zenEditBehaviors
 		echo
 		'<p><label for="zenedit_fullscreen" class="classic">'.
 		form::checkbox('zenedit_fullscreen',1,$core->auth->user_prefs->interface->zenedit_fullscreen).'</label>'.
-		__('Try to activate full screen in zen mode').'</p>'.
+		__('Try to activate full screen in editor\'s zen mode').'</p>'.
 		'<p class="clear form-note">'.__('Your browser may not support this feature or it may be deactivated by the system.').'</p>';
 	}
 }

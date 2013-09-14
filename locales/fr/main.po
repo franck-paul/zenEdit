@@ -13,8 +13,8 @@ msgstr "Basculer dans le mode zen"
 msgid "Exit from zen mode"
 msgstr "Sortir du mode zen"
 
-msgid "Try to activate full screen in zen mode"
-msgstr "Essayer de basculer en plein écran dans le mode zen"
+msgid "Try to activate full screen in editor's zen mode"
+msgstr "Essayer de basculer en plein écran dans le mode zen de l'éditeur"
 
 msgid "Your browser may not support this feature or it may be deactivated by the system."
 msgstr "Votre navigateur peut ne pas supporter cette fonctionnalité ou elle peut avoir été désactivée par le système."

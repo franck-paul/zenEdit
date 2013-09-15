@@ -103,9 +103,14 @@ var inZen = function(container,page,main) {
 	dotclear.zenMode_main_bc = main.css('background-color');
 	dotclear.zenMode_main_bi = main.css('background-image');
 	dotclear.zenMode_container_mt = container.css('margin-top');
+	dotclear.zenMode_container_ml = container.css('margin-left');
+	dotclear.zenMode_hide_mm = main.parent().hasClass('hide-mm');
 
 	// Hack some CSS attributes
 	container.css('margin-top','4em');
+	if (dotclear.zenMode_hide_mm) {
+		container.css('margin-left','14.5em');
+	}
 	$('body')
 		.css('font-size','13px')
 		.css('color','rgb(101,101,101)')
@@ -141,6 +146,9 @@ var outZen = function(container,page,main) {
 
 	// Restore some CSS attributes as before
 	container.css('margin-top',dotclear.zenMode_container_mt);
+	if (dotclear.zenMode_hide_mm) {
+		container.css('margin-left',dotclear.zenMode_container_ml);
+	}
 	$('body')
 		.css('font-size',dotclear.zenMode_body_fs)
 		.css('color',dotclear.zenMode_body_tc)

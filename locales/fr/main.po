@@ -18,3 +18,12 @@ msgstr "Essayer de basculer en plein écran dans le mode zen de l'éditeur"
 
 msgid "Your browser may not support this feature or it may be deactivated by the system."
 msgstr "Votre navigateur peut ne pas supporter cette fonctionnalité ou elle peut avoir été désactivée par le système."
+
+msgid "Background:"
+msgstr "Fond :"
+
+msgid "Dark backgrounds"
+msgstr "Fonds foncés"
+
+msgid "Light backgrounds"
+msgstr "Fonds clairs"

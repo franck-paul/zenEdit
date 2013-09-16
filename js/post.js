@@ -108,6 +108,17 @@ var inZen = function(container,page,main,wrapper) {
 	dotclear.zenMode_wrapper_bc = wrapper.css('background-color');
 	dotclear.zenMode_wrapper_bi = wrapper.css('background-image');
 
+	dotclear.zenMode_Color = 'rgb(101,101,101)';
+
+	// Set textured background if set
+	if (dotclear.zenMode_Background != '') {
+		$('body').css('background-image','url(index.php?pf=zenEdit/img/background/'+dotclear.zenMode_Background+')');
+		if (dotclear.zenMode_Background.substr(0,5) == 'dark/') {
+			// Dark background
+			dotclear.zenMode_Color = 'rgb(241,241,241)';
+		}
+	}
+
 	// Hack some CSS attributes
 	container.css('margin-top','4em');
 	if (dotclear.zenMode_hide_mm) {
@@ -115,7 +126,7 @@ var inZen = function(container,page,main,wrapper) {
 	}
 	$('body')
 		.css('font-size','13px')
-		.css('color','rgb(101,101,101)')
+		.css('color',dotclear.zenMode_Color)
 		.css('background-color','rgb(251,251,251)');
 	wrapper.css('background-color','transparent').css('background-image','none');
 	page.css('background-color','transparent');
@@ -146,6 +157,11 @@ var outZen = function(container,page,main,wrapper) {
 	// Exit from zen mode
 
 	if (dotclear.zenMode == '0') return;
+
+	// Reset textured background if set
+	if (dotclear.zenMode_Background != '') {
+		$('body').css('background-image','none');
+	}
 
 	// Restore some CSS attributes as before
 	container.css('margin-top',dotclear.zenMode_container_mt);

@@ -12,6 +12,9 @@
 
 if (!defined('DC_CONTEXT_ADMIN')) { return; }
 
+/* Name */			__('zenEdit');
+/* Description*/	__('Zen mode for editors');
+
 $core->addBehavior('adminPostHeaders',array('zenEditBehaviors','jsLoad'));
 $core->addBehavior('adminPageHeaders',array('zenEditBehaviors','jsLoad'));
 $core->addBehavior('adminRelatedHeaders',array('zenEditBehaviors','jsLoad'));

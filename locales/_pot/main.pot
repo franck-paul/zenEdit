@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 zenEdit module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-09-18 16:30+0200\n"
+"POT-Creation-Date: 2013-09-19 07:40+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,34 +16,38 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../hg-plugins/zenEdit/_admin.php:36
-msgid "Switch to zen mode"
+#: ../hg-plugins/zenEdit/_admin.php:15
+msgid "zenEdit"
 msgstr ""
 
-#: ../hg-plugins/zenEdit/_admin.php:37
-msgid "Exit from zen mode"
-msgstr ""
-
-#: ../hg-plugins/zenEdit/_admin.php:86
-msgid "Light backgrounds"
-msgstr ""
-
-#: ../hg-plugins/zenEdit/_admin.php:100
-msgid "Dark backgrounds"
-msgstr ""
-
-#: ../hg-plugins/zenEdit/_admin.php:112
+#: ../hg-plugins/zenEdit/_admin.php:16 ../hg-plugins/zenEdit/_admin.php:115
 msgid "Zen mode for editors"
 msgstr ""
 
-#: ../hg-plugins/zenEdit/_admin.php:117
+#: ../hg-plugins/zenEdit/_admin.php:39
+msgid "Switch to zen mode"
+msgstr ""
+
+#: ../hg-plugins/zenEdit/_admin.php:40
+msgid "Exit from zen mode"
+msgstr ""
+
+#: ../hg-plugins/zenEdit/_admin.php:89
+msgid "Light backgrounds"
+msgstr ""
+
+#: ../hg-plugins/zenEdit/_admin.php:103
+msgid "Dark backgrounds"
+msgstr ""
+
+#: ../hg-plugins/zenEdit/_admin.php:120
 msgid "Try to activate full screen in editor's zen mode"
 msgstr ""
 
-#: ../hg-plugins/zenEdit/_admin.php:118
+#: ../hg-plugins/zenEdit/_admin.php:121
 msgid "Your browser may not support this feature or it may be deactivated by the system."
 msgstr ""
 
-#: ../hg-plugins/zenEdit/_admin.php:122
+#: ../hg-plugins/zenEdit/_admin.php:125
 msgid "Background:"
 msgstr ""

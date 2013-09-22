@@ -127,7 +127,7 @@ var inZen = function(container,page,main,wrapper) {
 	$('body')
 		.css('font-size','13px')
 		.css('color',dotclear.zenMode_Color)
-		.css('background-color','rgb(251,251,251)');
+		.css('background-color','rgb(248,248,248)');
 	wrapper.css('background-color','transparent').css('background-image','none');
 	page.css('background-color','transparent');
 	main.css('background-color','transparent').css('background-image','none');

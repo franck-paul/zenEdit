@@ -5,5 +5,5 @@ var updateSampleBackground = function() {
 }
 
 $(function() {
-	$('#zenedit_background').change(updateSampleBackground).keypress(updateSampleBackground);
+	$('#zenedit_background').change(updateSampleBackground).keyup(updateSampleBackground);
 });

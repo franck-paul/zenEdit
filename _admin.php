@@ -12,6 +12,9 @@
 
 if (!defined('DC_CONTEXT_ADMIN')) { return; }
 
+// dead but useful code, in order to have translations
+__('zenEdit').__('Zen mode for editors');
+
 $core->addBehavior('adminPostHeaders',array('zenEditBehaviors','jsLoad'));
 $core->addBehavior('adminPageHeaders',array('zenEditBehaviors','jsLoad'));
 $core->addBehavior('adminRelatedHeaders',array('zenEditBehaviors','jsLoad'));

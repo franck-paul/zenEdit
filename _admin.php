@@ -71,8 +71,6 @@ class zenEditBehaviors
 
 	public static function adminPreferencesForm($core)
 	{
-		global $core;
-
 		$textures_combo = array(__('None') => '');
 		$textures_combo_dark = array();
 		$textures_combo_light = array();
@@ -131,4 +129,3 @@ class zenEditBehaviors
 		}
 	}
 }
-?>

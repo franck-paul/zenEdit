@@ -122,7 +122,7 @@ class zenEditBehaviors
 			echo
 				'<p><label for="zenedit_background" class="classic">'.__('Background:').'</label> '.
 				form::combo('zenedit_background',$textures_combo,$background).'</p>'.
-				' <span id="zenedit_sample" class="fieldset" style="background-image:url(index.php?pf=zenEdit/img/background/'.$background.')">&nbsp</span>'.
+				' <span id="zenedit_sample" class="fieldset" style="background-image:url(index.php?pf=zenEdit/img/background/'.$background.')">&nbsp;</span>'.
 				'</div>';
 		} else {
 			echo form::hidden('zenedit_background','');

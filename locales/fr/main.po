@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 zenEdit module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-09-24 13:21+0200\n"
+"POT-Creation-Date: 2015-01-10 14:20+0100\n"
 "PO-Revision-Date: 2013-09-18 14:58+0100\n"
 "Last-Translator: Franck Paul <carnet.franck.paul@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -43,3 +43,6 @@ msgstr "Votre navigateur peut ne pas supporter cette fonctionnalité ou elle peu
 
 msgid "Background:"
 msgstr "Fond :"
+
+msgid "Small margins (useful on small screens)"
+msgstr "Marges réduites (utile sur les petits écrans)"

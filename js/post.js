@@ -141,7 +141,7 @@ var inZen = function(container,entry,page,main,wrapper) {
 
 	// Hide everything not mandatory
 	dotclear.zenMode_other = container.allBut();
-	dotclear.zenMode_other.hide(800);
+	dotclear.zenMode_other.hide();
 
 	// Change toolbar button title and icon
 	jsToolBar.prototype.elements.zenEdit.title = dotclear.msg.zenEditHide;

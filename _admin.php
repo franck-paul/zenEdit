@@ -32,6 +32,7 @@ class zenEditBehaviors
 		$core->auth->user_prefs->addWorkspace('interface');
 		$full_screen = $core->auth->user_prefs->interface->zenedit_fullscreen ? '1' : '0';
 		$background = $core->auth->user_prefs->interface->zenedit_background;
+		$small_margins = $core->auth->user_prefs->interface->zenedit_small_margins ? '1' : '0';
 
 		return
 		'<script type="text/javascript">'."\n".
@@ -40,6 +41,7 @@ class zenEditBehaviors
 		dcPage::jsVar('dotclear.msg.zenEditHide',__('Exit from zen mode')).
 		dcPage::jsVar('dotclear.zenMode_FullScreen',$full_screen).
 		dcPage::jsVar('dotclear.zenMode_Background',$background).
+		dcPage::jsVar('dotclear.zenMode_SmallMargins',$small_margins).
 		dcPage::jsVar('dotclear.zenMode','0').
 		"\n//]]>\n".
 		"</script>\n".
@@ -55,6 +57,7 @@ class zenEditBehaviors
 		try {
 			$core->auth->user_prefs->interface->put('zenedit_fullscreen',!empty($_POST['zenedit_fullscreen']),'boolean');
 			$core->auth->user_prefs->interface->put('zenedit_background',(!empty($_POST['zenedit_background']) ? $_POST['zenedit_background'] : ''));
+			$core->auth->user_prefs->interface->put('zenedit_small_margins',!empty($_POST['zenedit_small_margins']),'boolean');
 		}
 		catch (Exception $e)
 		{
@@ -107,25 +110,26 @@ class zenEditBehaviors
 		$core->auth->user_prefs->addWorkspace('interface');
 		$background = $core->auth->user_prefs->interface->zenedit_background;
 
-		if (count($textures_combo) > 1) {
-			echo
+		echo
 			'<div class="fieldset">'.
 			'<h5>'.__('Zen mode for editors').'</h5>';
-		}
 		echo
-		'<p><label for="zenedit_fullscreen" class="classic">'.
-		form::checkbox('zenedit_fullscreen',1,$core->auth->user_prefs->interface->zenedit_fullscreen).'</label>'.
-		__('Try to activate full screen in editor\'s zen mode').'</p>'.
-		'<p class="clear form-note">'.__('Your browser may not support this feature or it may be deactivated by the system.').'</p>';
-
+			'<p><label for="zenedit_fullscreen" class="classic">'.
+			form::checkbox('zenedit_fullscreen',1,$core->auth->user_prefs->interface->zenedit_fullscreen).'</label>'.
+			__('Try to activate full screen in editor\'s zen mode').'</p>'.
+			'<p class="clear form-note">'.__('Your browser may not support this feature or it may be deactivated by the system.').'</p>';
 		if (count($textures_combo) > 1) {
 			echo
 				'<p><label for="zenedit_background" class="classic">'.__('Background:').'</label> '.
 				form::combo('zenedit_background',$textures_combo,$background).'</p>'.
-				' <span id="zenedit_sample" class="fieldset" style="background-image:url(index.php?pf=zenEdit/img/background/'.$background.')">&nbsp;</span>'.
-				'</div>';
+				' <span id="zenedit_sample" class="fieldset" style="background-image:url(index.php?pf=zenEdit/img/background/'.$background.')">&nbsp;</span>';
 		} else {
 			echo form::hidden('zenedit_background','');
 		}
+		echo
+			'<p><label for="zenedit_small_margins" class="classic">'.
+			form::checkbox('zenedit_small_margins',1,$core->auth->user_prefs->interface->zenedit_small_margins).'</label>'.
+			__('Small margins (useful on small screens)').'</p>';
+		echo '</div>';
 	}
 }

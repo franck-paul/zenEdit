@@ -38,13 +38,13 @@
                 default:
                     return document[this.prefix + 'FullScreen'];
             }
-        }
+        };
         fullScreenApi.requestFullScreen = function(el) {
             return (this.prefix === '') ? el.requestFullScreen() : el[this.prefix + 'RequestFullScreen']();
-        }
+        };
         fullScreenApi.cancelFullScreen = function(el) {
             return (this.prefix === '') ? document.cancelFullScreen() : document[this.prefix + 'CancelFullScreen']();
-        }
+        };
     }
 
     // jQuery plugin
@@ -87,10 +87,10 @@
             }
         }
         return otherList;
-    }
+    };
 })(jQuery);
 
-var inZen = function(container,page,main,wrapper) {
+var inZen = function(container,entry,page,main,wrapper) {
 	// Switch into zen mode
 
 	if (dotclear.zenMode == '1') return;
@@ -104,6 +104,7 @@ var inZen = function(container,page,main,wrapper) {
 	dotclear.zenMode_main_bi = main.css('background-image');
 	dotclear.zenMode_container_mt = container.css('margin-top');
 	dotclear.zenMode_container_ml = container.css('margin-left');
+	dotclear.zenMode_container_mr = container.css('margin-right');
 	dotclear.zenMode_hide_mm = wrapper.hasClass('hide-mm');
 	dotclear.zenMode_wrapper_bc = wrapper.css('background-color');
 	dotclear.zenMode_wrapper_bi = wrapper.css('background-image');
@@ -111,7 +112,7 @@ var inZen = function(container,page,main,wrapper) {
 	dotclear.zenMode_Color = 'rgb(101,101,101)';
 
 	// Set textured background if set
-	if (dotclear.zenMode_Background != '') {
+	if (dotclear.zenMode_Background !== '') {
 		$('body').css('background-image','url(index.php?pf=zenEdit/img/background/'+dotclear.zenMode_Background+')');
 		if (dotclear.zenMode_Background.substr(0,5) == 'dark/') {
 			// Dark background
@@ -120,9 +121,15 @@ var inZen = function(container,page,main,wrapper) {
 	}
 
 	// Hack some CSS attributes
-	container.css('margin-top','4em');
+	container.css('margin-top','3em');
 	if (dotclear.zenMode_hide_mm) {
-		container.css('margin-left','14.5em');
+//		container.css('margin-left','14.5em');
+//		container.css('margin-right','14.5em');
+	} else  {
+		if (dotclear.zenMode_SmallMargins == '1') {
+			container.css('margin-left',entry.css('margin-right'));
+			container.css('margin-right','4em');
+		}
 	}
 	$('body')
 		.css('font-size','13px')
@@ -153,21 +160,20 @@ var inZen = function(container,page,main,wrapper) {
 	}
 };
 
-var outZen = function(container,page,main,wrapper) {
+var outZen = function(container,entry,page,main,wrapper) {
 	// Exit from zen mode
 
 	if (dotclear.zenMode == '0') return;
 
 	// Reset textured background if set
-	if (dotclear.zenMode_Background != '') {
+	if (dotclear.zenMode_Background !== '') {
 		$('body').css('background-image','none');
 	}
 
 	// Restore some CSS attributes as before
 	container.css('margin-top',dotclear.zenMode_container_mt);
-	if (dotclear.zenMode_hide_mm) {
-		container.css('margin-left',dotclear.zenMode_container_ml);
-	}
+	container.css('margin-left',dotclear.zenMode_container_ml);
+	container.css('margin-right',dotclear.zenMode_container_mr);
 	$('body')
 		.css('font-size',dotclear.zenMode_body_fs)
 		.css('color',dotclear.zenMode_body_tc)
@@ -200,13 +206,14 @@ var switchZen = function() {
 	wrapper = $('#wrapper');
 	main = $('#main');
 	page = $('#content');
+	entry = $('#entry-wrapper');
 	container = $('div#entry-content');
 	if (dotclear.zenMode == '0') {
-		inZen(container,page,main,wrapper);
+		inZen(container,entry,page,main,wrapper);
 	} else {
-		outZen(container,page,main,wrapper);
+		outZen(container,entry,page,main,wrapper);
 	}
-}
+};
 
 // Toolbar button for series
 

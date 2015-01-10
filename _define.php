@@ -16,7 +16,7 @@ $this->registerModule(
 	/* Name */			"zenEdit",
 	/* Description*/		"Zen mode for editors",
 	/* Author */			"Franck Paul",
-	/* Version */			'0.4',
+	/* Version */			'0.5',
 	array(
 		/* Permissions */	'permissions' =>	'usage,contentadmin',
 		/* Type */			'type' =>			'plugin'

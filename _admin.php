@@ -15,9 +15,7 @@ if (!defined('DC_CONTEXT_ADMIN')) { return; }
 // dead but useful code, in order to have translations
 __('zenEdit').__('Zen mode for editors');
 
-$core->addBehavior('adminPostHeaders',array('zenEditBehaviors','jsLoad'));
-$core->addBehavior('adminPageHeaders',array('zenEditBehaviors','jsLoad'));
-$core->addBehavior('adminRelatedHeaders',array('zenEditBehaviors','jsLoad'));
+$core->addBehavior('adminPostEditor',array('zenEditBehaviors','adminPostEditor'));
 
 $core->addBehavior('adminBeforeUserOptionsUpdate',array('zenEditBehaviors','adminBeforeUserUpdate'));
 $core->addBehavior('adminPreferencesHeaders',array('zenEditBehaviors','adminPreferencesHeaders'));
@@ -25,8 +23,10 @@ $core->addBehavior('adminPreferencesForm',array('zenEditBehaviors','adminPrefere
 
 class zenEditBehaviors
 {
-	public static function jsLoad()
+	public static function adminPostEditor($editor='',$context='',array $tags=array())
 	{
+		if ($editor != 'dcLegacyEditor') return;
+
 		global $core;
 
 		$core->auth->user_prefs->addWorkspace('interface');

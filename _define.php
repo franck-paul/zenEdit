@@ -14,7 +14,7 @@ if (!defined('DC_RC_PATH')) { return; }
 
 $this->registerModule(
 	/* Name */			"zenEdit",
-	/* Description*/		"Zen mode for editors",
+	/* Description*/		"Zen mode for dcLegacyEditor",
 	/* Author */			"Franck Paul",
 	/* Version */			'0.5',
 	array(

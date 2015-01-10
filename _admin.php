@@ -13,7 +13,7 @@
 if (!defined('DC_CONTEXT_ADMIN')) { return; }
 
 // dead but useful code, in order to have translations
-__('zenEdit').__('Zen mode for editors');
+__('zenEdit').__('Zen mode for dcLegacyEditor');
 
 $core->addBehavior('adminPostEditor',array('zenEditBehaviors','adminPostEditor'));
 
@@ -112,7 +112,7 @@ class zenEditBehaviors
 
 		echo
 			'<div class="fieldset">'.
-			'<h5>'.__('Zen mode for editors').'</h5>';
+			'<h5>'.__('Zen mode for dcLegacyEditor').'</h5>';
 		echo
 			'<p><label for="zenedit_fullscreen" class="classic">'.
 			form::checkbox('zenedit_fullscreen',1,$core->auth->user_prefs->interface->zenedit_fullscreen).'</label>'.

@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: ../hg-plugins/zenEdit//_admin.php:16 ../hg-plugins/zenEdit//_admin.php:115
-msgid "Zen mode for editors"
+msgid "Zen mode for dcLegacyEditor"
 msgstr ""
 
 #: ../hg-plugins/zenEdit//_admin.php:16

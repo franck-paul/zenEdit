@@ -17,8 +17,8 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Poedit 1.5.7\n"
 
-msgid "Zen mode for editors"
-msgstr "Mode zen pour l'édition"
+msgid "Zen mode for dcLegacyEditor"
+msgstr "Mode zen pour l'éditeur dcLegacyEditor"
 
 msgid "zenEdit"
 msgstr "Édition zen"

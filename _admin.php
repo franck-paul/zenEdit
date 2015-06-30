@@ -23,7 +23,7 @@ $core->addBehavior('adminPreferencesForm',array('zenEditBehaviors','adminPrefere
 
 class zenEditBehaviors
 {
-	public static function adminPostEditor($editor='',$context='',array $tags=array())
+	public static function adminPostEditor($editor='',$context='',array $tags=array(),$syntax='')
 	{
 		if ($editor != 'dcLegacyEditor') return;
 

@@ -45,7 +45,7 @@ class zenEditBehaviors
 		dcPage::jsVar('dotclear.zenMode','0').
 		"\n//]]>\n".
 		"</script>\n".
-		'<script src="index.php?pf=zenEdit/js/post.js" type="text/javascript"></script>'."\n";
+		dcPage::jsLoad(urldecode(dcPage::getPF('zenEdit/js/post.js')),$core->getVersion('zenEdit'));
 	}
 
 	public static function adminBeforeUserUpdate($cur,$userID)
@@ -67,9 +67,11 @@ class zenEditBehaviors
 
 	public static function adminPreferencesHeaders()
 	{
+		global $core;
+
 		return
-		'<script src="index.php?pf=zenEdit/js/preferences.js" type="text/javascript"></script>'."\n".
-		'<link rel="stylesheet" type="text/css" href="index.php?pf=zenEdit/style.css" />';
+		dcPage::jsLoad(urldecode(dcPage::getPF('zenEdit/js/preferences.js')),$core->getVersion('zenEdit')).
+		dcPage::cssLoad(urldecode(dcPage::getPF('zenEdit/style.css')),'screen',$core->getVersion('zenEdit'));
 	}
 
 	public static function adminPreferencesForm($core)
@@ -122,7 +124,8 @@ class zenEditBehaviors
 			echo
 				'<p><label for="zenedit_background" class="classic">'.__('Background:').'</label> '.
 				form::combo('zenedit_background',$textures_combo,$background).'</p>'.
-				' <span id="zenedit_sample" class="fieldset" style="background-image:url(index.php?pf=zenEdit/img/background/'.$background.')">&nbsp;</span>';
+				' <span id="zenedit_sample" class="fieldset" style="background-image:url('.
+					urldecode(dcPage::getPF('zenEdit/img/background/'.$background)).')">&nbsp;</span>';
 		} else {
 			echo form::hidden('zenedit_background','');
 		}

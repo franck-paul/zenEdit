@@ -36,14 +36,12 @@ class zenEditBehaviors
 
 		return
 		'<script type="text/javascript">'."\n".
-		"//<![CDATA[\n".
 		dcPage::jsVar('dotclear.msg.zenEditShow',__('Switch to zen mode')).
 		dcPage::jsVar('dotclear.msg.zenEditHide',__('Exit from zen mode')).
 		dcPage::jsVar('dotclear.zenMode_FullScreen',$full_screen).
 		dcPage::jsVar('dotclear.zenMode_Background',$background).
 		dcPage::jsVar('dotclear.zenMode_SmallMargins',$small_margins).
 		dcPage::jsVar('dotclear.zenMode','0').
-		"\n//]]>\n".
 		"</script>\n".
 		dcPage::jsLoad(urldecode(dcPage::getPF('zenEdit/js/post.js')),$core->getVersion('zenEdit'));
 	}

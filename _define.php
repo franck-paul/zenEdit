@@ -16,7 +16,7 @@ $this->registerModule(
 	/* Name */			"zenEdit",
 	/* Description*/		"Zen mode for dcLegacyEditor",
 	/* Author */			"Franck Paul",
-	/* Version */			'0.6',
+	/* Version */			'0.7',
 	array(
 		/* Permissions */	'permissions' =>	'usage,contentadmin',
 		/* Type */			'type' =>			'plugin'

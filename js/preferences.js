@@ -1,3 +1,6 @@
+/*global $ */
+'use strict';
+
 var updateSampleBackground = function() {
 	// Change background image of #zenedit_sample
 	var background = $('#zenedit_background').val();

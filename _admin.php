@@ -16,15 +16,15 @@ if (!defined('DC_CONTEXT_ADMIN')) {return;}
 // dead but useful code, in order to have translations
 __('zenEdit') . __('Zen mode for dcLegacyEditor');
 
-$core->addBehavior('adminPostEditor', array('zenEditBehaviors', 'adminPostEditor'));
+$core->addBehavior('adminPostEditor', ['zenEditBehaviors', 'adminPostEditor']);
 
-$core->addBehavior('adminBeforeUserOptionsUpdate', array('zenEditBehaviors', 'adminBeforeUserUpdate'));
-$core->addBehavior('adminPreferencesHeaders', array('zenEditBehaviors', 'adminPreferencesHeaders'));
-$core->addBehavior('adminPreferencesForm', array('zenEditBehaviors', 'adminPreferencesForm'));
+$core->addBehavior('adminBeforeUserOptionsUpdate', ['zenEditBehaviors', 'adminBeforeUserUpdate']);
+$core->addBehavior('adminPreferencesHeaders', ['zenEditBehaviors', 'adminPreferencesHeaders']);
+$core->addBehavior('adminPreferencesForm', ['zenEditBehaviors', 'adminPreferencesForm']);
 
 class zenEditBehaviors
 {
-    public static function adminPostEditor($editor = '', $context = '', array $tags = array(), $syntax = '')
+    public static function adminPostEditor($editor = '', $context = '', array $tags = [], $syntax = '')
     {
         if ($editor != 'dcLegacyEditor') {
             return;
@@ -75,9 +75,9 @@ class zenEditBehaviors
 
     public static function adminPreferencesForm($core)
     {
-        $textures_combo       = array(__('None') => '');
-        $textures_combo_dark  = array();
-        $textures_combo_light = array();
+        $textures_combo       = [__('None') => ''];
+        $textures_combo_dark  = [];
+        $textures_combo_light = [];
         // Light textures
         $textures_root = dirname(__FILE__) . '/img/background/light/';
         if (is_dir($textures_root) && is_readable($textures_root)) {

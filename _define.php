@@ -18,8 +18,9 @@ $this->registerModule(
     "Zen mode for dcLegacyEditor", // Description
     "Franck Paul",                 // Author
     '0.7',                         // Version
-    array(
+    [
+        'requires'    => [['core', '2.13']], // Dependencies
         'permissions' => 'usage,contentadmin', // Permissions
         'type'        => 'plugin'             // Type
-    )
+    ]
 );

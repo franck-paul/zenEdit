@@ -20,7 +20,7 @@
     fullScreenApi.supportsFullScreen = true;
   } else {
     // check for fullscreen support by vendor prefix
-    for (var i = 0, il = browserPrefixes.length; i < il; i++) {
+    for (let i = 0, il = browserPrefixes.length; i < il; i++) {
       fullScreenApi.prefix = browserPrefixes[i];
 
       if (typeof document[fullScreenApi.prefix + 'CancelFullScreen'] != 'undefined') {
@@ -72,12 +72,12 @@
 (function($) {
   // Return all element not belonging to context
   $.fn.allBut = function(context) {
-    var target = this;
-    var otherList = $();
-    var processList = $(context || 'body').children();
+    const target = this;
+    let otherList = $();
+    let processList = $(context || 'body').children();
 
     while (processList.size() > 0) {
-      var cElem = processList.first();
+      const cElem = processList.first();
       processList = processList.slice(1);
 
       if (cElem.filter(target).size() != target.size()) {
@@ -95,7 +95,7 @@
   };
 })(jQuery);
 
-var inZen = function(container, entry, page, main, wrapper) {
+const inZen = function(container, entry, page, main, wrapper) {
   // Switch into zen mode
 
   if (dotclear.zenMode == '1') return;
@@ -118,7 +118,7 @@ var inZen = function(container, entry, page, main, wrapper) {
 
   // Set textured background if set
   if (dotclear.zenMode_Background !== '') {
-    $('body').css('background-image', 'url(index.php?pf=zenEdit/img/background/' + dotclear.zenMode_Background + ')');
+    $('body').css('background-image', `url(index.php?pf=zenEdit/img/background/${dotclear.zenMode_Background})`);
     if (dotclear.zenMode_Background.substr(0, 5) == 'dark/') {
       // Dark background
       dotclear.zenMode_Color = 'rgb(241,241,241)';
@@ -165,7 +165,7 @@ var inZen = function(container, entry, page, main, wrapper) {
   }
 };
 
-var outZen = function(container, entry, page, main, wrapper) {
+const outZen = function(container, entry, page, main, wrapper) {
   // Exit from zen mode
 
   if (dotclear.zenMode == '0') return;
@@ -207,12 +207,12 @@ var outZen = function(container, entry, page, main, wrapper) {
   }
 };
 
-var switchZen = function() {
-  var wrapper = $('#wrapper');
-  var main = $('#main');
-  var page = $('#content');
-  var entry = $('#entry-wrapper');
-  var container = $('div#entry-content');
+const switchZen = function() {
+  const wrapper = $('#wrapper');
+  const main = $('#main');
+  const page = $('#content');
+  const entry = $('#entry-wrapper');
+  const container = $('div#entry-content');
   if (dotclear.zenMode == '0') {
     inZen(container, entry, page, main, wrapper);
   } else {

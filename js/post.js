@@ -1,4 +1,4 @@
-/*global $, jQuery, dotclear, jsToolBar */
+/*global $, jQuery, dotclear, jsToolBar, mergeDeep, getData */
 'use strict';
 
 (function() {
@@ -98,7 +98,7 @@
 const inZen = function(container, entry, page, main, wrapper) {
   // Switch into zen mode
 
-  if (dotclear.zenMode == '1') return;
+  if (dotclear.zenMode == 1) return;
 
   // Get current status of some DOM element
   dotclear.zenMode_body_fs = $('body').css('font-size');
@@ -156,7 +156,7 @@ const inZen = function(container, entry, page, main, wrapper) {
     .attr('title', dotclear.msg.zenEditHide)
     .css('background-image', 'url(index.php?pf=zenEdit/img/zen-off.png)');
 
-  dotclear.zenMode = '1';
+  dotclear.zenMode = 1;
 
   if (dotclear.zenMode_FullScreen == '1') {
     if (fullScreenApi.supportsFullScreen) {
@@ -168,7 +168,7 @@ const inZen = function(container, entry, page, main, wrapper) {
 const outZen = function(container, entry, page, main, wrapper) {
   // Exit from zen mode
 
-  if (dotclear.zenMode == '0') return;
+  if (dotclear.zenMode == 0) return;
 
   // Reset textured background if set
   if (dotclear.zenMode_Background !== '') {
@@ -198,7 +198,7 @@ const outZen = function(container, entry, page, main, wrapper) {
     .attr('title', dotclear.msg.zenEditShow)
     .css('background-image', 'url(index.php?pf=zenEdit/img/zen-on.png)');
 
-  dotclear.zenMode = '0';
+  dotclear.zenMode = 0;
 
   if (dotclear.zenMode_FullScreen == '1') {
     if (fullScreenApi.supportsFullScreen && fullScreenApi.isFullScreen) {
@@ -213,7 +213,7 @@ const switchZen = function() {
   const page = $('#content');
   const entry = $('#entry-wrapper');
   const container = $('div#entry-content');
-  if (dotclear.zenMode == '0') {
+  if (dotclear.zenMode == 0) {
     inZen(container, entry, page, main, wrapper);
   } else {
     outZen(container, entry, page, main, wrapper);
@@ -253,7 +253,10 @@ jsToolBar.prototype.elements.zenEdit.fn.markdown = function() {
 };
 
 $(document).ready(function() {
-  if (dotclear.zenMode == '0') {
+
+  mergeDeep(dotclear, getData('zenedit'));
+
+  if (dotclear.zenMode == 0) {
     jsToolBar.prototype.elements.zenEdit.title = dotclear.msg.zenEditShow;
     jsToolBar.prototype.elements.zenEdit.icon = 'index.php?pf=zenEdit/img/zen-on.png';
   } else {

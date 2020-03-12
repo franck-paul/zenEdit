@@ -38,14 +38,16 @@ class zenEditBehaviors
         $small_margins = $core->auth->user_prefs->interface->zenedit_small_margins ? '1' : '0';
 
         return
-        '<script type="text/javascript">' . "\n" .
-        dcPage::jsVar('dotclear.msg.zenEditShow', __('Switch to zen mode')) .
-        dcPage::jsVar('dotclear.msg.zenEditHide', __('Exit from zen mode')) .
-        dcPage::jsVar('dotclear.zenMode_FullScreen', $full_screen) .
-        dcPage::jsVar('dotclear.zenMode_Background', $background) .
-        dcPage::jsVar('dotclear.zenMode_SmallMargins', $small_margins) .
-        dcPage::jsVar('dotclear.zenMode', '0') .
-        "</script>\n" .
+        dcPage::jsJson('zenedit', [
+            'msg'                  => [
+                'zenEditShow' => __('Switch to zen mode'),
+                'zenEditHide' => __('Exit from zen mode')
+            ],
+            'zenMode_FullScreen'   => $full_screen,
+            'zenMode_Background'   => $background,
+            'zenMode_SmallMargins' => $small_margins,
+            'zenMode'              => 0
+        ]) .
         dcPage::jsLoad(urldecode(dcPage::getPF('zenEdit/js/post.js')), $core->getVersion('zenEdit'));
     }
 

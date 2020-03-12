@@ -1,4 +1,4 @@
-/*global $, jQuery, dotclear, jsToolBar, mergeDeep, getData */
+/*global $, jQuery, dotclear, jsToolBar, mergeDeep, getData, fullScreenApi */
 'use strict';
 
 (function() {

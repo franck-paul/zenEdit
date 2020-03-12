@@ -19,8 +19,13 @@ $this->registerModule(
     "Franck Paul",                 // Author
     '0.7',                         // Version
     [
-        'requires'    => [['core', '2.16']], // Dependencies
-        'permissions' => 'usage,contentadmin', // Permissions
-        'type'        => 'plugin'             // Type
+        'requires'    => [['core', '2.16']],                       // Dependencies
+        'permissions' => 'usage,contentadmin',                     // Permissions
+        'type'        => 'plugin',                                 // Type
+        'details'     => 'https://open-time.net/?q=zenEdit',       // Details URL
+        'support'     => 'https://github.com/franck-paul/zenEdit', // Support URL
+        'settings'    => [
+            'pref' => '#user-options.zenEdit_prefs'
+        ]
     ]
 );

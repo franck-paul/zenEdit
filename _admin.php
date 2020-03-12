@@ -115,7 +115,7 @@ class zenEditBehaviors
 
         echo
         '<div class="fieldset">' .
-        '<h5>' . __('Zen mode for dcLegacyEditor') . '</h5>';
+        '<h5 id="zenEdit_prefs">' . __('Zen mode for dcLegacyEditor') . '</h5>';
         echo
         '<p><label for="zenedit_fullscreen" class="classic">' .
         form::checkbox('zenedit_fullscreen', 1, $core->auth->user_prefs->interface->zenedit_fullscreen) . '</label>' .

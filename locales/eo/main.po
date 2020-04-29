@@ -1,0 +1,57 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: dotclear-2-zenedit-plugin\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-04-29 14:23+0200\n"
+"PO-Revision-Date: 2020-04-29 14:17\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Esperanto\n"
+"Language: eo_UY\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Crowdin-Project: dotclear-2-zenedit-plugin\n"
+"X-Crowdin-Language: eo\n"
+"X-Crowdin-File: /master/locales/_pot/main.pot\n"
+
+#: ../git-plugins/zenEdit/_admin.php:17 ../git-plugins/zenEdit/_admin.php:118
+msgid "Zen mode for dcLegacyEditor"
+msgstr ""
+
+#: ../git-plugins/zenEdit/_admin.php:17
+msgid "zenEdit"
+msgstr ""
+
+#: ../git-plugins/zenEdit/_admin.php:43
+msgid "Switch to zen mode"
+msgstr ""
+
+#: ../git-plugins/zenEdit/_admin.php:44
+msgid "Exit from zen mode"
+msgstr ""
+
+#: ../git-plugins/zenEdit/_admin.php:93
+msgid "Light backgrounds"
+msgstr ""
+
+#: ../git-plugins/zenEdit/_admin.php:107
+msgid "Dark backgrounds"
+msgstr ""
+
+#: ../git-plugins/zenEdit/_admin.php:122
+msgid "Try to activate full screen in editor's zen mode"
+msgstr ""
+
+#: ../git-plugins/zenEdit/_admin.php:123
+msgid "Your browser may not support this feature or it may be deactivated by the system."
+msgstr ""
+
+#: ../git-plugins/zenEdit/_admin.php:126
+msgid "Background:"
+msgstr ""
+
+#: ../git-plugins/zenEdit/_admin.php:136
+msgid "Small margins (useful on small screens)"
+msgstr ""
+

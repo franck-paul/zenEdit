@@ -1,48 +1,57 @@
-# SOME DESCRIPTIVE TITLE.
-# This file is put in the public domain.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
 msgid ""
 msgstr ""
-"Project-Id-Version: Dotclear 2 zenEdit module\n"
+"Project-Id-Version: 50d3b8d0e6d2a2399f5e12816e5bcfb9\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-01-10 14:20+0100\n"
-"PO-Revision-Date: 2013-09-18 14:58+0100\n"
-"Last-Translator: Franck Paul <carnet.franck.paul@gmail.com>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"PO-Revision-Date: 2020-04-29 12:11\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: French\n"
+"Language: fr_FR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 1.5.7\n"
+"X-Crowdin-Project: 50d3b8d0e6d2a2399f5e12816e5bcfb9\n"
+"X-Crowdin-Language: fr\n"
+"X-Crowdin-File: /master/locales/_pot/main.pot\n"
 
+#: ../hg-plugins/zenEdit//_admin.php:16 ../hg-plugins/zenEdit//_admin.php:115
 msgid "Zen mode for dcLegacyEditor"
 msgstr "Mode zen pour l'éditeur dcLegacyEditor"
 
+#: ../hg-plugins/zenEdit//_admin.php:16
 msgid "zenEdit"
 msgstr "Édition zen"
 
+#: ../hg-plugins/zenEdit//_admin.php:40
 msgid "Switch to zen mode"
 msgstr "Basculer dans le mode zen"
 
+#: ../hg-plugins/zenEdit//_admin.php:41
 msgid "Exit from zen mode"
 msgstr "Sortir du mode zen"
 
+#: ../hg-plugins/zenEdit//_admin.php:90
 msgid "Light backgrounds"
 msgstr "Fonds clairs"
 
+#: ../hg-plugins/zenEdit//_admin.php:104
 msgid "Dark backgrounds"
 msgstr "Fonds foncés"
 
+#: ../hg-plugins/zenEdit//_admin.php:119
 msgid "Try to activate full screen in editor's zen mode"
 msgstr "Essayer de basculer en plein écran dans le mode zen de l'éditeur"
 
+#: ../hg-plugins/zenEdit//_admin.php:120
 msgid "Your browser may not support this feature or it may be deactivated by the system."
 msgstr "Votre navigateur peut ne pas supporter cette fonctionnalité ou elle peut avoir été désactivé par le système."
 
+#: ../hg-plugins/zenEdit//_admin.php:123
 msgid "Background:"
 msgstr "Fond :"
 
+#: ../hg-plugins/zenEdit//_admin.php:132
 msgid "Small margins (useful on small screens)"
 msgstr "Marges réduites (utile sur les petits écrans)"
+

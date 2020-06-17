@@ -8,5 +8,5 @@ const updateSampleBackground = function() {
 };
 
 $(function() {
-  $('#zenedit_background').change(updateSampleBackground).keyup(updateSampleBackground);
+  $('#zenedit_background').on('change', updateSampleBackground).on('keyup', updateSampleBackground);
 });

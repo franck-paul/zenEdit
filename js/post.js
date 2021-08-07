@@ -1,19 +1,16 @@
-/*global $, jQuery, dotclear, jsToolBar, mergeDeep, getData, fullScreenApi */
+/*global $, jQuery, dotclear, jsToolBar, fullScreenApi */
 'use strict';
 
-(function() {
-  var
-    fullScreenApi = {
-      supportsFullScreen: false,
-      isFullScreen: function() {
-        return false;
-      },
-      requestFullScreen: function() {},
-      cancelFullScreen: function() {},
-      fullScreenEventName: '',
-      prefix: ''
-    },
-    browserPrefixes = 'webkit moz o ms khtml'.split(' ');
+(function () {
+  var fullScreenApi = {
+    supportsFullScreen: false,
+    isFullScreen: () => false,
+    requestFullScreen: () => {},
+    cancelFullScreen: () => {},
+    fullScreenEventName: '',
+    prefix: '',
+  };
+  const browserPrefixes = 'webkit moz o ms khtml'.split(' ');
 
   // check for native support
   if (typeof document.cancelFullScreen != 'undefined') {
@@ -34,7 +31,7 @@
   if (fullScreenApi.supportsFullScreen) {
     fullScreenApi.fullScreenEventName = fullScreenApi.prefix + 'fullscreenchange';
 
-    fullScreenApi.isFullScreen = function() {
+    fullScreenApi.isFullScreen = function () {
       switch (this.prefix) {
         case '':
           return document.fullScreen;
@@ -44,19 +41,18 @@
           return document[this.prefix + 'FullScreen'];
       }
     };
-    fullScreenApi.requestFullScreen = function(el) {
-      return (this.prefix === '') ? el.requestFullScreen() : el[this.prefix + 'RequestFullScreen']();
+    fullScreenApi.requestFullScreen = function (el) {
+      return this.prefix === '' ? el.requestFullScreen() : el[this.prefix + 'RequestFullScreen']();
     };
-    fullScreenApi.cancelFullScreen = function() {
-      return (this.prefix === '') ? document.cancelFullScreen() : document[this.prefix + 'CancelFullScreen']();
+    fullScreenApi.cancelFullScreen = function () {
+      return this.prefix === '' ? document.cancelFullScreen() : document[this.prefix + 'CancelFullScreen']();
     };
   }
 
   // jQuery plugin
   if (typeof jQuery != 'undefined') {
-    jQuery.fn.requestFullScreen = function() {
-
-      return this.each(function() {
+    jQuery.fn.requestFullScreen = function () {
+      return this.each(function () {
         if (fullScreenApi.supportsFullScreen) {
           fullScreenApi.requestFullScreen(this);
         }
@@ -69,9 +65,9 @@
 })();
 
 // utilities functions
-(function($) {
+(function ($) {
   // Return all element not belonging to context
-  $.fn.allBut = function(context) {
+  $.fn.allBut = function (context) {
     const target = this;
     let otherList = $();
     let processList = $(context || 'body').children();
@@ -95,7 +91,7 @@
   };
 })(jQuery);
 
-const inZen = function(container, entry, page, main, wrapper) {
+const inZen = function (container, entry, page, main, wrapper) {
   // Switch into zen mode
 
   if (dotclear.zenMode == 1) return;
@@ -136,10 +132,7 @@ const inZen = function(container, entry, page, main, wrapper) {
       container.css('margin-right', '4em');
     }
   }
-  $('body')
-    .css('font-size', '13px')
-    .css('color', dotclear.zenMode_Color)
-    .css('background-color', 'rgb(248,248,248)');
+  $('body').css('font-size', '13px').css('color', dotclear.zenMode_Color).css('background-color', 'rgb(248,248,248)');
   wrapper.css('background-color', 'transparent').css('background-image', 'none');
   page.css('background-color', 'transparent');
   main.css('background-color', 'transparent').css('background-image', 'none');
@@ -165,7 +158,7 @@ const inZen = function(container, entry, page, main, wrapper) {
   }
 };
 
-const outZen = function(container, entry, page, main, wrapper) {
+const outZen = function (container, entry, page, main, wrapper) {
   // Exit from zen mode
 
   if (dotclear.zenMode == 0) return;
@@ -207,7 +200,7 @@ const outZen = function(container, entry, page, main, wrapper) {
   }
 };
 
-const switchZen = function() {
+const switchZen = function () {
   const wrapper = $('#wrapper');
   const main = $('#main');
   const page = $('#content');
@@ -228,33 +221,24 @@ jsToolBar.prototype.elements.zenEditSpace = {
     wysiwyg: true,
     wiki: true,
     xhtml: true,
-    markdown: true
-  }
+    markdown: true,
+  },
 };
 
 jsToolBar.prototype.elements.zenEdit = {
   type: 'button',
   title: 'Zen',
-  fn: {}
+  fn: {},
 };
 jsToolBar.prototype.elements.zenEdit.context = 'post';
 jsToolBar.prototype.elements.zenEdit.icon = 'index.php?pf=zenEdit/img/zen-on.png';
-jsToolBar.prototype.elements.zenEdit.fn.wiki = function() {
-  switchZen();
-};
-jsToolBar.prototype.elements.zenEdit.fn.xhtml = function() {
-  switchZen();
-};
-jsToolBar.prototype.elements.zenEdit.fn.wysiwyg = function() {
-  switchZen();
-};
-jsToolBar.prototype.elements.zenEdit.fn.markdown = function() {
-  switchZen();
-};
+jsToolBar.prototype.elements.zenEdit.fn.wiki = () => switchZen();
+jsToolBar.prototype.elements.zenEdit.fn.xhtml = () => switchZen();
+jsToolBar.prototype.elements.zenEdit.fn.wysiwyg = () => switchZen();
+jsToolBar.prototype.elements.zenEdit.fn.markdown = () => switchZen();
 
-$(document).ready(function() {
-
-  mergeDeep(dotclear, getData('zenedit'));
+$(document).ready(function () {
+  dotclear.mergeDeep(dotclear, dotclear.getData('zenedit'));
 
   if (dotclear.zenMode == 0) {
     jsToolBar.prototype.elements.zenEdit.title = dotclear.msg.zenEditShow;

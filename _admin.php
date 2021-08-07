@@ -10,8 +10,9 @@
  * @copyright Franck Paul carnet.franck.paul@gmail.com
  * @copyright GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
  */
-
-if (!defined('DC_CONTEXT_ADMIN')) {return;}
+if (!defined('DC_CONTEXT_ADMIN')) {
+    return;
+}
 
 // dead but useful code, in order to have translations
 __('zenEdit') . __('Zen mode for dcLegacyEditor');
@@ -39,7 +40,7 @@ class zenEditBehaviors
 
         return
         dcPage::jsJson('zenedit', [
-            'msg'                  => [
+            'msg' => [
                 'zenEditShow' => __('Switch to zen mode'),
                 'zenEditHide' => __('Exit from zen mode')
             ],
@@ -57,6 +58,7 @@ class zenEditBehaviors
 
         // Get and store user's prefs for plugin options
         $core->auth->user_prefs->addWorkspace('interface');
+
         try {
             $core->auth->user_prefs->interface->put('zenedit_fullscreen', !empty($_POST['zenedit_fullscreen']), 'boolean');
             $core->auth->user_prefs->interface->put('zenedit_background', (!empty($_POST['zenedit_background']) ? $_POST['zenedit_background'] : ''));

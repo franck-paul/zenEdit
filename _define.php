@@ -23,10 +23,12 @@ $this->registerModule(
         'requires'    => [['core', '2.19']],                       // Dependencies
         'permissions' => 'usage,contentadmin',                     // Permissions
         'type'        => 'plugin',                                 // Type
-        'details'     => 'https://open-time.net/?q=zenEdit',       // Details URL
-        'support'     => 'https://github.com/franck-paul/zenEdit', // Support URL
         'settings'    => [
             'pref' => '#user-options.zenEdit_prefs'
-        ]
+        ],
+
+        'details'    => 'https://open-time.net/?q=zenEdit',       // Details URL
+        'support'    => 'https://github.com/franck-paul/zenEdit', // Support URL
+        'repository' => 'https://raw.githubusercontent.com/franck-paul/zenEdit/main/dcstore.xml'
     ]
 );

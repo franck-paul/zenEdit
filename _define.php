@@ -29,6 +29,6 @@ $this->registerModule(
 
         'details'    => 'https://open-time.net/?q=zenEdit',       // Details URL
         'support'    => 'https://github.com/franck-paul/zenEdit', // Support URL
-        'repository' => 'https://raw.githubusercontent.com/franck-paul/zenEdit/main/dcstore.xml'
+        'repository' => 'https://raw.githubusercontent.com/franck-paul/zenEdit/master/dcstore.xml'
     ]
 );

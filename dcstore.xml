@@ -1,8 +1,8 @@
 <modules xmlns:da="http://dotaddict.org/da/">
   <module id="zenEdit">
-    <name>zenEdit</name>
+    <name>Zen mode for dcLegacyEditor</name>
     <version>0.8</version>
-    <author>Franck Paul</author>
+    <author>Zen mode for dcLegacyEditor</author>
     <desc>Zen mode for dcLegacyEditor</desc>
     <file>https://github.com/franck-paul/zenEdit/releases/download/0.8/plugin-zenEdit-0.8.zip</file>
     <da:dcmin>2.19</da:dcmin>

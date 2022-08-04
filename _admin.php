@@ -27,7 +27,7 @@ class zenEditBehaviors
 {
     public static function adminPostEditor($editor = '', $context = '', array $tags = [], $syntax = '')
     {
-        if ($editor != 'dcLegacyEditor') {
+        if ($editor !== 'dcLegacyEditor') {
             return;
         }
 
@@ -42,14 +42,14 @@ class zenEditBehaviors
         dcPage::jsJson('zenedit', [
             'msg' => [
                 'zenEditShow' => __('Switch to zen mode'),
-                'zenEditHide' => __('Exit from zen mode')
+                'zenEditHide' => __('Exit from zen mode'),
             ],
             'zenMode_FullScreen'   => $full_screen,
             'zenMode_Background'   => $background,
             'zenMode_SmallMargins' => $small_margins,
-            'zenMode'              => 0
+            'zenMode'              => 0,
         ]) .
-        dcPage::jsLoad(urldecode(dcPage::getPF('zenEdit/js/post.js')), $core->getVersion('zenEdit'));
+        dcPage::jsModuleLoad('zenEdit/js/post.js', $core->getVersion('zenEdit'));
     }
 
     public static function adminBeforeUserUpdate($cur, $userID)
@@ -73,8 +73,8 @@ class zenEditBehaviors
         global $core;
 
         return
-        dcPage::jsLoad(urldecode(dcPage::getPF('zenEdit/js/preferences.js')), $core->getVersion('zenEdit')) .
-        dcPage::cssLoad(urldecode(dcPage::getPF('zenEdit/style.css')), 'screen', $core->getVersion('zenEdit'));
+        dcPage::jsModuleLoad('zenEdit/js/preferences.js', $core->getVersion('zenEdit')) .
+        dcPage::cssModuleLoad('zenEdit/style.css', 'screen', $core->getVersion('zenEdit'));
     }
 
     public static function adminPreferencesForm($core)
@@ -83,7 +83,7 @@ class zenEditBehaviors
         $textures_combo_dark  = [];
         $textures_combo_light = [];
         // Light textures
-        $textures_root = dirname(__FILE__) . '/img/background/light/';
+        $textures_root = __DIR__ . '/img/background/light/';
         if (is_dir($textures_root) && is_readable($textures_root)) {
             if (($d = @dir($textures_root)) !== false) {
                 while (($entry = $d->read()) !== false) {
@@ -97,7 +97,7 @@ class zenEditBehaviors
             }
         }
         // Dark textures
-        $textures_root = dirname(__FILE__) . '/img/background/dark/';
+        $textures_root = __DIR__ . '/img/background/dark/';
         if (is_dir($textures_root) && is_readable($textures_root)) {
             if (($d = @dir($textures_root)) !== false) {
                 while (($entry = $d->read()) !== false) {

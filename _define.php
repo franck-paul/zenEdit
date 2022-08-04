@@ -18,17 +18,17 @@ $this->registerModule(
     'zenEdit',                     // Name
     'Zen mode for dcLegacyEditor', // Description
     'Franck Paul',                 // Author
-    '0.8',                         // Version
+    '1.0',                         // Version
     [
-        'requires'    => [['core', '2.19']],                       // Dependencies
+        'requires'    => [['core', '2.22']],                       // Dependencies
         'permissions' => 'usage,contentadmin',                     // Permissions
         'type'        => 'plugin',                                 // Type
         'settings'    => [
-            'pref' => '#user-options.zenEdit_prefs'
+            'pref' => '#user-options.zenEdit_prefs',
         ],
 
         'details'    => 'https://open-time.net/?q=zenEdit',       // Details URL
         'support'    => 'https://github.com/franck-paul/zenEdit', // Support URL
-        'repository' => 'https://raw.githubusercontent.com/franck-paul/zenEdit/master/dcstore.xml'
+        'repository' => 'https://raw.githubusercontent.com/franck-paul/zenEdit/master/dcstore.xml',
     ]
 );

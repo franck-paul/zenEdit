@@ -1,8 +1,8 @@
 /*global $, jQuery, dotclear, jsToolBar, fullScreenApi */
 'use strict';
 
-(function () {
-  var fullScreenApi = {
+(() => {
+  const fullScreenApi = {
     supportsFullScreen: false,
     isFullScreen: () => false,
     requestFullScreen: () => {},
@@ -13,23 +13,23 @@
   const browserPrefixes = 'webkit moz o ms khtml'.split(' ');
 
   // check for native support
-  if (typeof document.cancelFullScreen != 'undefined') {
-    fullScreenApi.supportsFullScreen = true;
-  } else {
+  if (typeof document.cancelFullScreen === 'undefined') {
     // check for fullscreen support by vendor prefix
     for (let i = 0, il = browserPrefixes.length; i < il; i++) {
       fullScreenApi.prefix = browserPrefixes[i];
 
-      if (typeof document[fullScreenApi.prefix + 'CancelFullScreen'] != 'undefined') {
+      if (typeof document[`${fullScreenApi.prefix}CancelFullScreen`] != 'undefined') {
         fullScreenApi.supportsFullScreen = true;
         break;
       }
     }
+  } else {
+    fullScreenApi.supportsFullScreen = true;
   }
 
   // update methods to do something useful
   if (fullScreenApi.supportsFullScreen) {
-    fullScreenApi.fullScreenEventName = fullScreenApi.prefix + 'fullscreenchange';
+    fullScreenApi.fullScreenEventName = `${fullScreenApi.prefix}fullscreenchange`;
 
     fullScreenApi.isFullScreen = function () {
       switch (this.prefix) {
@@ -38,14 +38,14 @@
         case 'webkit':
           return document.webkitIsFullScreen;
         default:
-          return document[this.prefix + 'FullScreen'];
+          return document[`${this.prefix}FullScreen`];
       }
     };
     fullScreenApi.requestFullScreen = function (el) {
-      return this.prefix === '' ? el.requestFullScreen() : el[this.prefix + 'RequestFullScreen']();
+      return this.prefix === '' ? el.requestFullScreen() : el[`${this.prefix}RequestFullScreen`]();
     };
     fullScreenApi.cancelFullScreen = function () {
-      return this.prefix === '' ? document.cancelFullScreen() : document[this.prefix + 'CancelFullScreen']();
+      return this.prefix === '' ? document.cancelFullScreen() : document[`${this.prefix}CancelFullScreen`]();
     };
   }
 
@@ -65,10 +65,9 @@
 })();
 
 // utilities functions
-(function ($) {
+(() => {
   // Return all element not belonging to context
   $.fn.allBut = function (context) {
-    const target = this;
     let otherList = $();
     let processList = $(context || 'body').children();
 
@@ -76,28 +75,25 @@
       const cElem = processList.first();
       processList = processList.slice(1);
 
-      if (cElem.filter(target).size() != target.size()) {
-        if (cElem.has(target).size() > 0) {
+      if (cElem.filter(this).size() != this.size()) {
+        if (cElem.has(this).size() > 0) {
           processList = processList.add(cElem.children());
-        } else {
-          if (cElem.css('display') != 'none') {
-            // Get only not hidden element
-            otherList = otherList.add(cElem);
-          }
+        } else if (cElem.css('display') != 'none') {
+          // Get only not hidden element
+          otherList = otherList.add(cElem);
         }
       }
     }
     return otherList;
   };
-})(jQuery);
+})();
 
-const inZen = function (container, entry, page, main, wrapper) {
+const inZen = (container, page, main, wrapper, entry) => {
   // Switch into zen mode
 
   if (dotclear.zenMode == 1) return;
 
   // Get current status of some DOM element
-  dotclear.zenMode_body_fs = $('body').css('font-size');
   dotclear.zenMode_body_tc = $('body').css('color');
   dotclear.zenMode_body_bc = $('body').css('background-color');
   dotclear.zenMode_page_bc = page.css('background-color');
@@ -123,16 +119,14 @@ const inZen = function (container, entry, page, main, wrapper) {
 
   // Hack some CSS attributes
   container.css('margin-top', '3em');
-  if (dotclear.zenMode_hide_mm) {
-    //    container.css('margin-left','14.5em');
-    //    container.css('margin-right','14.5em');
+  if (dotclear.zenMode_SmallMargins == '1') {
+    container.css('margin-left', dotclear.zenMode_hide_mm ? entry.css('margin-right') : '-13em');
+    container.css('margin-right', '0');
   } else {
-    if (dotclear.zenMode_SmallMargins == '1') {
-      container.css('margin-left', entry.css('margin-right'));
-      container.css('margin-right', '4em');
-    }
+    container.css('margin-left', dotclear.zenMode_hide_mm ? '14.5em' : '1em');
+    container.css('margin-right', '14.5em');
   }
-  $('body').css('font-size', '13px').css('color', dotclear.zenMode_Color).css('background-color', 'rgb(248,248,248)');
+  $('body').css('color', dotclear.zenMode_Color).css('background-color', 'rgb(248,248,248)');
   wrapper.css('background-color', 'transparent').css('background-image', 'none');
   page.css('background-color', 'transparent');
   main.css('background-color', 'transparent').css('background-image', 'none');
@@ -143,22 +137,17 @@ const inZen = function (container, entry, page, main, wrapper) {
 
   // Change toolbar button title and icon
   jsToolBar.prototype.elements.zenEdit.title = dotclear.msg.zenEditHide;
-  jsToolBar.prototype.elements.zenEdit.icon = 'index.php?pf=zenEdit/img/zen-off.png';
   //  Don't know how to refresh this button !?! So, jQuery will help me
-  $('button.jstb_zenEdit')
-    .attr('title', dotclear.msg.zenEditHide)
-    .css('background-image', 'url(index.php?pf=zenEdit/img/zen-off.png)');
+  $('button.jstb_zenEdit').attr('title', dotclear.msg.zenEditHide);
 
   dotclear.zenMode = 1;
 
-  if (dotclear.zenMode_FullScreen == '1') {
-    if (fullScreenApi.supportsFullScreen) {
-      fullScreenApi.requestFullScreen(document.documentElement);
-    }
+  if (dotclear.zenMode_FullScreen == '1' && fullScreenApi.supportsFullScreen) {
+    fullScreenApi.requestFullScreen(document.documentElement);
   }
 };
 
-const outZen = function (container, entry, page, main, wrapper) {
+const outZen = (container, page, main, wrapper) => {
   // Exit from zen mode
 
   if (dotclear.zenMode == 0) return;
@@ -172,10 +161,7 @@ const outZen = function (container, entry, page, main, wrapper) {
   container.css('margin-top', dotclear.zenMode_container_mt);
   container.css('margin-left', dotclear.zenMode_container_ml);
   container.css('margin-right', dotclear.zenMode_container_mr);
-  $('body')
-    .css('font-size', dotclear.zenMode_body_fs)
-    .css('color', dotclear.zenMode_body_tc)
-    .css('background-color', dotclear.zenMode_body_bc);
+  $('body').css('color', dotclear.zenMode_body_tc).css('background-color', dotclear.zenMode_body_bc);
   wrapper.css('background-color', dotclear.zenMode_wrapper_bc).css('background-image', dotclear.zenMode_wrapper_bi);
   page.css('background-color', dotclear.zenMode_page_bc);
   main.css('background-color', dotclear.zenMode_main_bc).css('background-image', dotclear.zenMode_main_bi);
@@ -185,31 +171,26 @@ const outZen = function (container, entry, page, main, wrapper) {
 
   // Restore toolbar button title
   jsToolBar.prototype.elements.zenEdit.title = dotclear.msg.zenEditShow;
-  jsToolBar.prototype.elements.zenEdit.icon = 'index.php?pf=zenEdit/img/zen-on.png';
   //  Don't know how to refresh this button !?! So, jQuery will help me
-  $('button.jstb_zenEdit')
-    .attr('title', dotclear.msg.zenEditShow)
-    .css('background-image', 'url(index.php?pf=zenEdit/img/zen-on.png)');
+  $('button.jstb_zenEdit').attr('title', dotclear.msg.zenEditShow);
 
   dotclear.zenMode = 0;
 
-  if (dotclear.zenMode_FullScreen == '1') {
-    if (fullScreenApi.supportsFullScreen && fullScreenApi.isFullScreen) {
-      fullScreenApi.cancelFullScreen(document.documentElement);
-    }
+  if (dotclear.zenMode_FullScreen == '1' && fullScreenApi.supportsFullScreen && fullScreenApi.isFullScreen) {
+    fullScreenApi.cancelFullScreen(document.documentElement);
   }
 };
 
-const switchZen = function () {
+const switchZen = () => {
   const wrapper = $('#wrapper');
   const main = $('#main');
   const page = $('#content');
   const entry = $('#entry-wrapper');
   const container = $('div#entry-content');
   if (dotclear.zenMode == 0) {
-    inZen(container, entry, page, main, wrapper);
+    inZen(container, page, main, wrapper, entry);
   } else {
-    outZen(container, entry, page, main, wrapper);
+    outZen(container, page, main, wrapper);
   }
 };
 
@@ -231,20 +212,14 @@ jsToolBar.prototype.elements.zenEdit = {
   fn: {},
 };
 jsToolBar.prototype.elements.zenEdit.context = 'post';
-jsToolBar.prototype.elements.zenEdit.icon = 'index.php?pf=zenEdit/img/zen-on.png';
+jsToolBar.prototype.elements.zenEdit.icon = 'index.php?pf=zenEdit/icon.svg';
 jsToolBar.prototype.elements.zenEdit.fn.wiki = () => switchZen();
 jsToolBar.prototype.elements.zenEdit.fn.xhtml = () => switchZen();
 jsToolBar.prototype.elements.zenEdit.fn.wysiwyg = () => switchZen();
 jsToolBar.prototype.elements.zenEdit.fn.markdown = () => switchZen();
 
-$(document).ready(function () {
+$(() => {
   dotclear.mergeDeep(dotclear, dotclear.getData('zenedit'));
 
-  if (dotclear.zenMode == 0) {
-    jsToolBar.prototype.elements.zenEdit.title = dotclear.msg.zenEditShow;
-    jsToolBar.prototype.elements.zenEdit.icon = 'index.php?pf=zenEdit/img/zen-on.png';
-  } else {
-    jsToolBar.prototype.elements.zenEdit.title = dotclear.msg.zenEditHide;
-    jsToolBar.prototype.elements.zenEdit.icon = 'index.php?pf=zenEdit/img/zen-off.png';
-  }
+  jsToolBar.prototype.elements.zenEdit.title = dotclear.zenMode == 0 ? dotclear.msg.zenEditShow : dotclear.msg.zenEditHide;
 });

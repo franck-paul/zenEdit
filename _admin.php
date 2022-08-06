@@ -17,11 +17,11 @@ if (!defined('DC_CONTEXT_ADMIN')) {
 // dead but useful code, in order to have translations
 __('zenEdit') . __('Zen mode for dcLegacyEditor');
 
-$core->addBehavior('adminPostEditor', ['zenEditBehaviors', 'adminPostEditor']);
+dcCore::app()->addBehavior('adminPostEditor', ['zenEditBehaviors', 'adminPostEditor']);
 
-$core->addBehavior('adminBeforeUserOptionsUpdate', ['zenEditBehaviors', 'adminBeforeUserUpdate']);
-$core->addBehavior('adminPreferencesHeaders', ['zenEditBehaviors', 'adminPreferencesHeaders']);
-$core->addBehavior('adminPreferencesForm', ['zenEditBehaviors', 'adminPreferencesForm']);
+dcCore::app()->addBehavior('adminBeforeUserOptionsUpdate', ['zenEditBehaviors', 'adminBeforeUserUpdate']);
+dcCore::app()->addBehavior('adminPreferencesHeaders', ['zenEditBehaviors', 'adminPreferencesHeaders']);
+dcCore::app()->addBehavior('adminPreferencesForm', ['zenEditBehaviors', 'adminPreferencesForm']);
 
 class zenEditBehaviors
 {
@@ -31,53 +31,51 @@ class zenEditBehaviors
             return;
         }
 
-        global $core;
-
-        $core->auth->user_prefs->addWorkspace('interface');
-        $full_screen   = $core->auth->user_prefs->interface->zenedit_fullscreen ? '1' : '0';
-        $background    = $core->auth->user_prefs->interface->zenedit_background;
-        $small_margins = $core->auth->user_prefs->interface->zenedit_small_margins ? '1' : '0';
+        dcCore::app()->auth->user_prefs->addWorkspace('interface');
+        $full_screen   = dcCore::app()->auth->user_prefs->interface->zenedit_fullscreen ? '1' : '0';
+        $background    = dcCore::app()->auth->user_prefs->interface->zenedit_background;
+        $small_margins = dcCore::app()->auth->user_prefs->interface->zenedit_small_margins ? '1' : '0';
 
         return
         dcPage::jsJson('zenedit', [
             'msg' => [
-                'zenEditShow' => __('Switch to zen mode'),
-                'zenEditHide' => __('Exit from zen mode'),
+                'zenEdit' => [
+                    'show' => __('Switch to zen mode'),
+                    'hide' => __('Exit from zen mode'),
+                ],
             ],
-            'zenMode_FullScreen'   => $full_screen,
-            'zenMode_Background'   => $background,
-            'zenMode_SmallMargins' => $small_margins,
-            'zenMode'              => 0,
+            'zenEdit' => [
+                'fullScreen'   => $full_screen,
+                'background'   => $background,
+                'smallMargins' => $small_margins,
+                'mode'         => 0,
+            ],
         ]) .
-        dcPage::jsModuleLoad('zenEdit/js/post.js', $core->getVersion('zenEdit'));
+        dcPage::jsModuleLoad('zenEdit/js/post.js', dcCore::app()->getVersion('zenEdit'));
     }
 
     public static function adminBeforeUserUpdate($cur, $userID)
     {
-        global $core;
-
         // Get and store user's prefs for plugin options
-        $core->auth->user_prefs->addWorkspace('interface');
+        dcCore::app()->auth->user_prefs->addWorkspace('interface');
 
         try {
-            $core->auth->user_prefs->interface->put('zenedit_fullscreen', !empty($_POST['zenedit_fullscreen']), 'boolean');
-            $core->auth->user_prefs->interface->put('zenedit_background', (!empty($_POST['zenedit_background']) ? $_POST['zenedit_background'] : ''));
-            $core->auth->user_prefs->interface->put('zenedit_small_margins', !empty($_POST['zenedit_small_margins']), 'boolean');
+            dcCore::app()->auth->user_prefs->interface->put('zenedit_fullscreen', !empty($_POST['zenedit_fullscreen']), 'boolean');
+            dcCore::app()->auth->user_prefs->interface->put('zenedit_background', (!empty($_POST['zenedit_background']) ? $_POST['zenedit_background'] : ''));
+            dcCore::app()->auth->user_prefs->interface->put('zenedit_small_margins', !empty($_POST['zenedit_small_margins']), 'boolean');
         } catch (Exception $e) {
-            $core->error->add($e->getMessage());
+            dcCore::app()->error->add($e->getMessage());
         }
     }
 
     public static function adminPreferencesHeaders()
     {
-        global $core;
-
         return
-        dcPage::jsModuleLoad('zenEdit/js/preferences.js', $core->getVersion('zenEdit')) .
-        dcPage::cssModuleLoad('zenEdit/style.css', 'screen', $core->getVersion('zenEdit'));
+        dcPage::jsModuleLoad('zenEdit/js/preferences.js', dcCore::app()->getVersion('zenEdit')) .
+        dcPage::cssModuleLoad('zenEdit/style.css', 'screen', dcCore::app()->getVersion('zenEdit'));
     }
 
-    public static function adminPreferencesForm($core)
+    public static function adminPreferencesForm($core = null)
     {
         $textures_combo       = [__('None') => ''];
         $textures_combo_dark  = [];
@@ -112,15 +110,15 @@ class zenEditBehaviors
         }
 
         // Add fieldset for plugin options
-        $core->auth->user_prefs->addWorkspace('interface');
-        $background = $core->auth->user_prefs->interface->zenedit_background;
+        dcCore::app()->auth->user_prefs->addWorkspace('interface');
+        $background = dcCore::app()->auth->user_prefs->interface->zenedit_background;
 
         echo
         '<div class="fieldset">' .
         '<h5 id="zenEdit_prefs">' . __('Zen mode for dcLegacyEditor') . '</h5>';
         echo
         '<p><label for="zenedit_fullscreen" class="classic">' .
-        form::checkbox('zenedit_fullscreen', 1, $core->auth->user_prefs->interface->zenedit_fullscreen) . '</label>' .
+        form::checkbox('zenedit_fullscreen', 1, dcCore::app()->auth->user_prefs->interface->zenedit_fullscreen) . '</label>' .
         __('Try to activate full screen in editor\'s zen mode') . '</p>' .
         '<p class="clear form-note">' . __('Your browser may not support this feature or it may be deactivated by the system.') . '</p>';
         if (count($textures_combo) > 1) {
@@ -134,7 +132,7 @@ class zenEditBehaviors
         }
         echo
         '<p><label for="zenedit_small_margins" class="classic">' .
-        form::checkbox('zenedit_small_margins', 1, $core->auth->user_prefs->interface->zenedit_small_margins) . '</label>' .
+        form::checkbox('zenedit_small_margins', 1, dcCore::app()->auth->user_prefs->interface->zenedit_small_margins) . '</label>' .
         __('Small margins (useful on small screens)') . '</p>';
         echo '</div>';
     }

@@ -15,20 +15,23 @@ if (!defined('DC_RC_PATH')) {
 }
 
 $this->registerModule(
-    'zenEdit',                     // Name
-    'Zen mode for dcLegacyEditor', // Description
-    'Franck Paul',                 // Author
-    '1.1',                         // Version
+    'zenEdit',
+    'Zen mode for dcLegacyEditor',
+    'Franck Paul',
+    '2.0',
     [
-        'requires'    => [['core', '2.23']],                       // Dependencies
-        'permissions' => 'usage,contentadmin',                     // Permissions
-        'type'        => 'plugin',                                 // Type
-        'settings'    => [
+        'requires'    => [['core', '2.24']],
+        'permissions' => dcCore::app()->auth->makePermissions([
+            dcAuth::PERMISSION_USAGE,
+            dcAuth::PERMISSION_CONTENT_ADMIN,
+        ]),
+        'type'     => 'plugin',
+        'settings' => [
             'pref' => '#user-options.zenEdit_prefs',
         ],
 
-        'details'    => 'https://open-time.net/?q=zenEdit',       // Details URL
-        'support'    => 'https://github.com/franck-paul/zenEdit', // Support URL
+        'details'    => 'https://open-time.net/?q=zenEdit',
+        'support'    => 'https://github.com/franck-paul/zenEdit',
         'repository' => 'https://raw.githubusercontent.com/franck-paul/zenEdit/master/dcstore.xml',
     ]
 );

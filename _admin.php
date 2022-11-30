@@ -17,18 +17,12 @@ if (!defined('DC_CONTEXT_ADMIN')) {
 // dead but useful code, in order to have translations
 __('zenEdit') . __('Zen mode for dcLegacyEditor');
 
-dcCore::app()->addBehavior('adminPostEditor', ['zenEditBehaviors', 'adminPostEditor']);
-
-dcCore::app()->addBehavior('adminBeforeUserOptionsUpdate', ['zenEditBehaviors', 'adminBeforeUserUpdate']);
-dcCore::app()->addBehavior('adminPreferencesHeaders', ['zenEditBehaviors', 'adminPreferencesHeaders']);
-dcCore::app()->addBehavior('adminPreferencesForm', ['zenEditBehaviors', 'adminPreferencesForm']);
-
 class zenEditBehaviors
 {
-    public static function adminPostEditor($editor = '', $context = '', array $tags = [], $syntax = '')
+    public static function adminPostEditor($editor = ''): string
     {
         if ($editor !== 'dcLegacyEditor') {
-            return;
+            return '';
         }
 
         dcCore::app()->auth->user_prefs->addWorkspace('interface');
@@ -54,7 +48,7 @@ class zenEditBehaviors
         dcPage::jsModuleLoad('zenEdit/js/post.js', dcCore::app()->getVersion('zenEdit'));
     }
 
-    public static function adminBeforeUserUpdate($cur, $userID)
+    public static function adminBeforeUserUpdate()
     {
         // Get and store user's prefs for plugin options
         dcCore::app()->auth->user_prefs->addWorkspace('interface');
@@ -68,44 +62,40 @@ class zenEditBehaviors
         }
     }
 
-    public static function adminPreferencesHeaders()
+    public static function adminPreferencesHeaders(): string
     {
         return
         dcPage::jsModuleLoad('zenEdit/js/preferences.js', dcCore::app()->getVersion('zenEdit')) .
         dcPage::cssModuleLoad('zenEdit/style.css', 'screen', dcCore::app()->getVersion('zenEdit'));
     }
 
-    public static function adminPreferencesForm($core = null)
+    public static function adminPreferencesForm()
     {
         $textures_combo       = [__('None') => ''];
         $textures_combo_dark  = [];
         $textures_combo_light = [];
         // Light textures
         $textures_root = __DIR__ . '/img/background/light/';
-        if (is_dir($textures_root) && is_readable($textures_root)) {
-            if (($d = @dir($textures_root)) !== false) {
-                while (($entry = $d->read()) !== false) {
-                    if ($entry != '.' && $entry != '..' && substr($entry, 0, 1) != '.' && is_readable($textures_root . '/' . $entry)) {
-                        $textures_combo_light[substr($entry, 0, -4)] = 'light/' . $entry;
-                    }
+        if (is_dir($textures_root) && is_readable($textures_root) && ($d = @dir($textures_root)) !== false) {
+            while (($entry = $d->read()) !== false) {
+                if ($entry != '.' && $entry != '..' && substr($entry, 0, 1) != '.' && is_readable($textures_root . '/' . $entry)) {
+                    $textures_combo_light[substr($entry, 0, -4)] = 'light/' . $entry;
                 }
-                if (count($textures_combo_light) > 0) {
-                    $textures_combo[__('Light backgrounds')] = $textures_combo_light;
-                }
+            }
+            if (count($textures_combo_light)) {
+                $textures_combo[__('Light backgrounds')] = $textures_combo_light;
             }
         }
         // Dark textures
         $textures_root = __DIR__ . '/img/background/dark/';
-        if (is_dir($textures_root) && is_readable($textures_root)) {
-            if (($d = @dir($textures_root)) !== false) {
-                while (($entry = $d->read()) !== false) {
-                    if ($entry != '.' && $entry != '..' && substr($entry, 0, 1) != '.' && is_readable($textures_root . '/' . $entry)) {
-                        $textures_combo_dark[substr($entry, 0, -4)] = 'dark/' . $entry;
-                    }
+        if (is_dir($textures_root) && is_readable($textures_root) && ($d = @dir($textures_root)) !== false) {
+            while (($entry = $d->read()) !== false) {
+                if ($entry != '.' && $entry != '..' && substr($entry, 0, 1) != '.' && is_readable($textures_root . '/' . $entry)) {
+                    $textures_combo_dark[substr($entry, 0, -4)] = 'dark/' . $entry;
                 }
-                if (count($textures_combo_dark) > 0) {
-                    $textures_combo[__('Dark backgrounds')] = $textures_combo_dark;
-                }
+            }
+            if (count($textures_combo_dark)) {
+                $textures_combo[__('Dark backgrounds')] = $textures_combo_dark;
             }
         }
 
@@ -137,3 +127,9 @@ class zenEditBehaviors
         echo '</div>';
     }
 }
+
+dcCore::app()->addBehavior('adminPostEditor', [zenEditBehaviors::class, 'adminPostEditor']);
+
+dcCore::app()->addBehavior('adminBeforeUserOptionsUpdate', [zenEditBehaviors::class, 'adminBeforeUserUpdate']);
+dcCore::app()->addBehavior('adminPreferencesHeaders', [zenEditBehaviors::class, 'adminPreferencesHeaders']);
+dcCore::app()->addBehavior('adminPreferencesFormV2', [zenEditBehaviors::class, 'adminPreferencesForm']);

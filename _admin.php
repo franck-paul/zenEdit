@@ -66,7 +66,7 @@ class zenEditBehaviors
     {
         return
         dcPage::jsModuleLoad('zenEdit/js/preferences.js', dcCore::app()->getVersion('zenEdit')) .
-        dcPage::cssModuleLoad('zenEdit/style.css', 'screen', dcCore::app()->getVersion('zenEdit'));
+        dcPage::cssModuleLoad('zenEdit/css/style.css', 'screen', dcCore::app()->getVersion('zenEdit'));
     }
 
     public static function adminPreferencesForm()

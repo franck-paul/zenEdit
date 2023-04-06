@@ -14,21 +14,15 @@ if (!defined('DC_CONTEXT_ADMIN')) {
     return;
 }
 
-$new_version = dcCore::app()->plugins->moduleInfo('zenEdit', 'version');
-$old_version = dcCore::app()->getVersion('zenEdit');
-
-if (version_compare((string) $old_version, $new_version, '>=')) {
+if (!dcCore::app()->newVersion(basename(__DIR__), dcCore::app()->plugins->moduleInfo(basename(__DIR__), 'version'))) {
     return;
 }
 
 try {
     // Default state is active for fullscreen
-    dcCore::app()->auth->user_prefs->addWorkspace('interface');
     dcCore::app()->auth->user_prefs->interface->put('zenedit_fullscreen', 1, 'boolean', 'Try to activate full screen in zen mode', false, true);
     dcCore::app()->auth->user_prefs->interface->put('zenedit_background', '', 'string', 'Background image in zen mode', false, true);
     dcCore::app()->auth->user_prefs->interface->put('zenedit_small_margins', 0, 'boolean', 'Try to activate full screen in zen mode', false, true);
-
-    dcCore::app()->setVersion('zenEdit', $new_version);
 
     return true;
 } catch (Exception $e) {

@@ -1,57 +1,58 @@
+# SOME DESCRIPTIVE TITLE.
+# This file is put in the public domain.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+# Translators:
+# Franck Paul <carnet.franck.paul@gmail.com>, 2023
+# 
+#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: dotclear-2-zenedit-plugin\n"
+"Project-Id-Version: Dotclear 2 zenEdit module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-29 14:23+0200\n"
-"PO-Revision-Date: 2020-04-29 13:56\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: French\n"
-"Language: fr_FR\n"
+"POT-Creation-Date: 2023-04-11 16:17+0200\n"
+"PO-Revision-Date: 2023-04-11 14:21+0000\n"
+"Last-Translator: Franck Paul <carnet.franck.paul@gmail.com>, 2023\n"
+"Language-Team: French (https://app.transifex.com/open-time/teams/109573/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Crowdin-Project: dotclear-2-zenedit-plugin\n"
-"X-Crowdin-Language: fr\n"
-"X-Crowdin-File: /master/locales/_pot/main.pot\n"
+"Language: fr\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 
-#: ../git-plugins/zenEdit/_admin.php:17 ../git-plugins/zenEdit/_admin.php:118
 msgid "Zen mode for dcLegacyEditor"
 msgstr "Mode zen pour l'éditeur dcLegacyEditor"
 
-#: ../git-plugins/zenEdit/_admin.php:17
 msgid "zenEdit"
 msgstr "Édition zen"
 
-#: ../git-plugins/zenEdit/_admin.php:43
 msgid "Switch to zen mode"
 msgstr "Basculer dans le mode zen"
 
-#: ../git-plugins/zenEdit/_admin.php:44
 msgid "Exit from zen mode"
 msgstr "Sortir du mode zen"
 
-#: ../git-plugins/zenEdit/_admin.php:93
+msgid "None"
+msgstr "Aucun"
+
 msgid "Light backgrounds"
 msgstr "Fonds clairs"
 
-#: ../git-plugins/zenEdit/_admin.php:107
 msgid "Dark backgrounds"
 msgstr "Fonds foncés"
 
-#: ../git-plugins/zenEdit/_admin.php:122
 msgid "Try to activate full screen in editor's zen mode"
 msgstr "Essayer de basculer en plein écran dans le mode zen de l'éditeur"
 
-#: ../git-plugins/zenEdit/_admin.php:123
-msgid "Your browser may not support this feature or it may be deactivated by the system."
-msgstr "Votre navigateur peut ne pas supporter cette fonctionnalité ou elle peut avoir été désactivé par le système."
+msgid ""
+"Your browser may not support this feature or it may be deactivated by the "
+"system."
+msgstr ""
+"Votre navigateur peut ne pas supporter cette fonctionnalité ou elle peut "
+"avoir été désactivé par le système."
 
-#: ../git-plugins/zenEdit/_admin.php:126
 msgid "Background:"
 msgstr "Fond :"
 
-#: ../git-plugins/zenEdit/_admin.php:136
 msgid "Small margins (useful on small screens)"
 msgstr "Marges réduites (utile sur les petits écrans)"
-

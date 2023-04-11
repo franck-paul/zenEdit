@@ -25,14 +25,13 @@ class zenEditBehaviors
             return '';
         }
 
-        dcCore::app()->auth->user_prefs->addWorkspace('interface');
         $full_screen   = dcCore::app()->auth->user_prefs->interface->zenedit_fullscreen ? '1' : '0';
         $background    = dcCore::app()->auth->user_prefs->interface->zenedit_background;
         $small_margins = dcCore::app()->auth->user_prefs->interface->zenedit_small_margins ? '1' : '0';
 
         return
         dcPage::jsJson('zenedit', [
-            'msg' => [
+            'msg'     => [
                 'zenEdit' => [
                     'show' => __('Switch to zen mode'),
                     'hide' => __('Exit from zen mode'),
@@ -51,8 +50,6 @@ class zenEditBehaviors
     public static function adminBeforeUserUpdate()
     {
         // Get and store user's prefs for plugin options
-        dcCore::app()->auth->user_prefs->addWorkspace('interface');
-
         try {
             dcCore::app()->auth->user_prefs->interface->put('zenedit_fullscreen', !empty($_POST['zenedit_fullscreen']), 'boolean');
             dcCore::app()->auth->user_prefs->interface->put('zenedit_background', (!empty($_POST['zenedit_background']) ? $_POST['zenedit_background'] : ''));
@@ -100,7 +97,6 @@ class zenEditBehaviors
         }
 
         // Add fieldset for plugin options
-        dcCore::app()->auth->user_prefs->addWorkspace('interface');
         $background = dcCore::app()->auth->user_prefs->interface->zenedit_background;
 
         echo
@@ -128,8 +124,10 @@ class zenEditBehaviors
     }
 }
 
-dcCore::app()->addBehavior('adminPostEditor', [zenEditBehaviors::class, 'adminPostEditor']);
+dcCore::app()->addBehaviors([
+    'adminPostEditor'              => [zenEditBehaviors::class, 'adminPostEditor'],
 
-dcCore::app()->addBehavior('adminBeforeUserOptionsUpdate', [zenEditBehaviors::class, 'adminBeforeUserUpdate']);
-dcCore::app()->addBehavior('adminPreferencesHeaders', [zenEditBehaviors::class, 'adminPreferencesHeaders']);
-dcCore::app()->addBehavior('adminPreferencesFormV2', [zenEditBehaviors::class, 'adminPreferencesForm']);
+    'adminBeforeUserOptionsUpdate' => [zenEditBehaviors::class, 'adminBeforeUserUpdate'],
+    'adminPreferencesHeaders'      => [zenEditBehaviors::class, 'adminPreferencesHeaders'],
+    'adminPreferencesFormV2'       => [zenEditBehaviors::class, 'adminPreferencesForm'],
+]);

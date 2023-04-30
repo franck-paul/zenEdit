@@ -22,6 +22,7 @@ $this->registerModule(
             dcAuth::PERMISSION_CONTENT_ADMIN,
         ]),
         'type'     => 'plugin',
+        'priority' => 1010, // Must be higher than dcLegacyEditor/dcCKEditor priority (ie 1000)
         'settings' => [
             'pref' => '#user-options.zenEdit_prefs',
         ],

@@ -14,20 +14,20 @@ $this->registerModule(
     'zenEdit',
     'Zen mode for dcLegacyEditor',
     'Franck Paul',
-    '2.0',
+    '3.0',
     [
-        'requires'    => [['core', '2.24']],
+        'requires'    => [['core', '2.26']],
         'permissions' => dcCore::app()->auth->makePermissions([
             dcAuth::PERMISSION_USAGE,
             dcAuth::PERMISSION_CONTENT_ADMIN,
         ]),
-        'type'        => 'plugin',
-        'settings'    => [
+        'type'     => 'plugin',
+        'settings' => [
             'pref' => '#user-options.zenEdit_prefs',
         ],
 
-        'details'     => 'https://open-time.net/?q=zenEdit',
-        'support'     => 'https://github.com/franck-paul/zenEdit',
-        'repository'  => 'https://raw.githubusercontent.com/franck-paul/zenEdit/master/dcstore.xml',
+        'details'    => 'https://open-time.net/?q=zenEdit',
+        'support'    => 'https://github.com/franck-paul/zenEdit',
+        'repository' => 'https://raw.githubusercontent.com/franck-paul/zenEdit/master/dcstore.xml',
     ]
 );

@@ -10,14 +10,23 @@
  * @copyright Franck Paul carnet.franck.paul@gmail.com
  * @copyright GPL-2.0 https://www.gnu.org/licenses/gpl-2.0.html
  */
-if (!defined('DC_CONTEXT_ADMIN')) {
-    return;
-}
+declare(strict_types=1);
 
-// dead but useful code, in order to have translations
-__('zenEdit') . __('Zen mode for dcLegacyEditor');
+namespace Dotclear\Plugin\zenEdit;
 
-class zenEditBehaviors
+use dcCore;
+use dcPage;
+use Dotclear\Helper\Html\Form\Checkbox;
+use Dotclear\Helper\Html\Form\Fieldset;
+use Dotclear\Helper\Html\Form\Hidden;
+use Dotclear\Helper\Html\Form\Label;
+use Dotclear\Helper\Html\Form\Legend;
+use Dotclear\Helper\Html\Form\Para;
+use Dotclear\Helper\Html\Form\Select;
+use Dotclear\Helper\Html\Form\Text;
+use Exception;
+
+class BackendBehaviors
 {
     public static function adminPostEditor($editor = ''): string
     {
@@ -31,7 +40,7 @@ class zenEditBehaviors
 
         return
         dcPage::jsJson('zenedit', [
-            'msg'     => [
+            'msg' => [
                 'zenEdit' => [
                     'show' => __('Switch to zen mode'),
                     'hide' => __('Exit from zen mode'),
@@ -68,11 +77,15 @@ class zenEditBehaviors
 
     public static function adminPreferencesForm()
     {
-        $textures_combo       = [__('None') => ''];
+        $textures_combo = [__('None') => ''];
+
         $textures_combo_dark  = [];
         $textures_combo_light = [];
+
+        $base_path = implode(DIRECTORY_SEPARATOR, [My::path(), 'img', 'background']);
+
         // Light textures
-        $textures_root = __DIR__ . '/img/background/light/';
+        $textures_root = implode(DIRECTORY_SEPARATOR, [$base_path, 'light']);
         if (is_dir($textures_root) && is_readable($textures_root) && ($d = @dir($textures_root)) !== false) {
             while (($entry = $d->read()) !== false) {
                 if ($entry != '.' && $entry != '..' && substr($entry, 0, 1) != '.' && is_readable($textures_root . '/' . $entry)) {
@@ -83,8 +96,9 @@ class zenEditBehaviors
                 $textures_combo[__('Light backgrounds')] = $textures_combo_light;
             }
         }
+
         // Dark textures
-        $textures_root = __DIR__ . '/img/background/dark/';
+        $textures_root = implode(DIRECTORY_SEPARATOR, [$base_path, 'dark']);
         if (is_dir($textures_root) && is_readable($textures_root) && ($d = @dir($textures_root)) !== false) {
             while (($entry = $d->read()) !== false) {
                 if ($entry != '.' && $entry != '..' && substr($entry, 0, 1) != '.' && is_readable($textures_root . '/' . $entry)) {
@@ -99,35 +113,45 @@ class zenEditBehaviors
         // Add fieldset for plugin options
         $background = dcCore::app()->auth->user_prefs->interface->zenedit_background;
 
-        echo
-        '<div class="fieldset">' .
-        '<h5 id="zenEdit_prefs">' . __('Zen mode for dcLegacyEditor') . '</h5>';
-        echo
-        '<p><label for="zenedit_fullscreen" class="classic">' .
-        form::checkbox('zenedit_fullscreen', 1, dcCore::app()->auth->user_prefs->interface->zenedit_fullscreen) . '</label>' .
-        __('Try to activate full screen in editor\'s zen mode') . '</p>' .
-        '<p class="clear form-note">' . __('Your browser may not support this feature or it may be deactivated by the system.') . '</p>';
+        // Prepare texture selector
         if (count($textures_combo) > 1) {
-            echo
-            '<p><label for="zenedit_background" class="classic">' . __('Background:') . '</label> ' .
-            form::combo('zenedit_background', $textures_combo, $background) . '</p>' .
-            ' <span id="zenedit_sample" class="fieldset" style="background-image:url(' .
-            urldecode(dcPage::getPF('zenEdit/img/background/' . $background)) . ')">&nbsp;</span>';
+            $textures = [
+                (new Para())->items([
+                    (new Select('zenedit_background'))
+                    ->items($textures_combo)
+                    ->default($background)
+                    ->label((new Label(__('Background:'), Label::INSIDE_TEXT_BEFORE))),
+                ]),
+                (new Text(null, ' ')),
+                (new Text('span', '&nbsp;'))
+                    ->id('zenedit_sample')
+                    ->class('fieldset')
+                    ->extra('style="background-image:url(' . urldecode(dcPage::getPF('zenEdit/img/background/' . $background)) . ')"'),
+            ];
         } else {
-            echo form::hidden('zenedit_background', '');
+            $textures = [(new Hidden('zenedit_background', ''))];
         }
+
         echo
-        '<p><label for="zenedit_small_margins" class="classic">' .
-        form::checkbox('zenedit_small_margins', 1, dcCore::app()->auth->user_prefs->interface->zenedit_small_margins) . '</label>' .
-        __('Small margins (useful on small screens)') . '</p>';
-        echo '</div>';
+        (new Fieldset('zenEdit_prefs'))
+        ->legend((new Legend(__('Zen mode for dcLegacyEditor'))))
+        ->fields([
+            (new Para())->items([
+                (new Checkbox('zenedit_fullscreen', dcCore::app()->auth->user_prefs->interface->zenedit_fullscreen))
+                    ->value(1)
+                    ->label((new Label(__('Try to activate full screen in editor\'s zen mode'), Label::INSIDE_TEXT_AFTER))),
+            ]),
+            (new Para())->items([
+                (new Text(null, __('Your browser may not support this feature or it may be deactivated by the system.')))
+                    ->class(['clear', 'form-note']),
+            ]),
+            ...$textures,   // See above
+            (new Para())->items([
+                (new Checkbox('zenedit_small_margins', dcCore::app()->auth->user_prefs->interface->zenedit_small_margins))
+                    ->value(1)
+                    ->label((new Label(__('Small margins (useful on small screens)'), Label::INSIDE_TEXT_AFTER))),
+            ]),
+        ])
+        ->render();
     }
 }
-
-dcCore::app()->addBehaviors([
-    'adminPostEditor'              => [zenEditBehaviors::class, 'adminPostEditor'],
-
-    'adminBeforeUserOptionsUpdate' => [zenEditBehaviors::class, 'adminBeforeUserUpdate'],
-    'adminPreferencesHeaders'      => [zenEditBehaviors::class, 'adminPreferencesHeaders'],
-    'adminPreferencesFormV2'       => [zenEditBehaviors::class, 'adminPreferencesForm'],
-]);

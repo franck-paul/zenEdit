@@ -1,6 +1,6 @@
 <?php
 /**
- * @brief sysInfo, a plugin for Dotclear 2
+ * @brief zenEdit, a plugin for Dotclear 2
  *
  * @package Dotclear
  * @subpackage Plugins

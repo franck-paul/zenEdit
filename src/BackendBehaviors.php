@@ -53,7 +53,7 @@ class BackendBehaviors
                 'mode'         => 0,
             ],
         ]) .
-        dcPage::jsModuleLoad('zenEdit/js/post.js', dcCore::app()->getVersion('zenEdit'));
+        dcPage::jsModuleLoad(My::id() . '/js/post.js', dcCore::app()->getVersion(My::id()));
     }
 
     public static function adminBeforeUserUpdate()
@@ -71,8 +71,8 @@ class BackendBehaviors
     public static function adminPreferencesHeaders(): string
     {
         return
-        dcPage::jsModuleLoad('zenEdit/js/preferences.js', dcCore::app()->getVersion('zenEdit')) .
-        dcPage::cssModuleLoad('zenEdit/css/style.css', 'screen', dcCore::app()->getVersion('zenEdit'));
+        dcPage::jsModuleLoad(My::id() . '/js/preferences.js', dcCore::app()->getVersion(My::id())) .
+        dcPage::cssModuleLoad(My::id() . '/css/style.css', 'screen', dcCore::app()->getVersion(My::id()));
     }
 
     public static function adminPreferencesForm()
@@ -126,7 +126,7 @@ class BackendBehaviors
                 (new Text('span', '&nbsp;'))
                     ->id('zenedit_sample')
                     ->class('fieldset')
-                    ->extra('style="background-image:url(' . urldecode(dcPage::getPF('zenEdit/img/background/' . $background)) . ')"'),
+                    ->extra('style="background-image:url(' . urldecode(dcPage::getPF(My::id() . '/img/background/' . $background)) . ')"'),
             ];
         } else {
             $textures = [(new Hidden('zenedit_background', ''))];

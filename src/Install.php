@@ -39,8 +39,6 @@ class Install extends dcNsProcess
             $preferences->put('zenedit_fullscreen', 1, 'boolean', 'Try to activate full screen in zen mode', false, true);
             $preferences->put('zenedit_background', '', 'string', 'Background image in zen mode', false, true);
             $preferences->put('zenedit_small_margins', 0, 'boolean', 'Try to activate full screen in zen mode', false, true);
-
-            return true;
         } catch (Exception $e) {
             dcCore::app()->error->add($e->getMessage());
         }

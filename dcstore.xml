@@ -1,10 +1,10 @@
 <modules xmlns:da="http://dotaddict.org/da/">
   <module id="zenEdit">
     <name>zenEdit</name>
-    <version>3.3.1</version>
+    <version>3.4</version>
     <author>Franck Paul</author>
     <desc>Zen mode for dcLegacyEditor</desc>
-    <file>https://github.com/franck-paul/zenEdit/releases/download/3.3.1/plugin-zenEdit-3.3.1.zip</file>
+    <file>https://github.com/franck-paul/zenEdit/releases/download/3.4/plugin-zenEdit-3.4.zip</file>
     <da:dcmin>2.26</da:dcmin>
     <da:details>https://open-time.net/?q=zenEdit</da:details>
     <da:support>https://github.com/franck-paul/zenEdit</da:support>

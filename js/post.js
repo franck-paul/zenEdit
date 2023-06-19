@@ -90,30 +90,31 @@
 
 // Toolbar button for series
 
-jsToolBar.prototype.elements.zenEditSpace = {
-  type: 'space',
-  format: {
-    wysiwyg: true,
-    wiki: true,
-    xhtml: true,
-    markdown: true,
-  },
-};
-
-jsToolBar.prototype.elements.zenEdit = {
-  type: 'button',
-  title: 'Zen',
-  fn: {},
-};
-jsToolBar.prototype.elements.zenEdit.context = 'post';
-jsToolBar.prototype.elements.zenEdit.icon = 'index.php?pf=zenEdit/icon.svg';
-jsToolBar.prototype.elements.zenEdit.fn.wiki = () => dotclear.zenEdit.switch();
-jsToolBar.prototype.elements.zenEdit.fn.xhtml = () => dotclear.zenEdit.switch();
-jsToolBar.prototype.elements.zenEdit.fn.wysiwyg = () => dotclear.zenEdit.switch();
-jsToolBar.prototype.elements.zenEdit.fn.markdown = () => dotclear.zenEdit.switch();
-
 $(() => {
   dotclear.mergeDeep(dotclear, dotclear.getData('zenedit'));
+
+  jsToolBar.prototype.elements.zenEditSpace = {
+    type: 'space',
+    format: {
+      wysiwyg: true,
+      wiki: true,
+      xhtml: true,
+      markdown: true,
+    },
+  };
+
+  jsToolBar.prototype.elements.zenEdit = {
+    type: 'button',
+    title: 'Zen',
+    fn: {},
+  };
+
+  jsToolBar.prototype.elements.zenEdit.context = 'post';
+  jsToolBar.prototype.elements.zenEdit.icon = dotclear.zenEdit.icon; // 'index.php?pf=zenEdit/icon.svg';
+  jsToolBar.prototype.elements.zenEdit.fn.wiki = () => dotclear.zenEdit.switch();
+  jsToolBar.prototype.elements.zenEdit.fn.xhtml = () => dotclear.zenEdit.switch();
+  jsToolBar.prototype.elements.zenEdit.fn.wysiwyg = () => dotclear.zenEdit.switch();
+  jsToolBar.prototype.elements.zenEdit.fn.markdown = () => dotclear.zenEdit.switch();
 
   dotclear.zenEdit.switch = () => {
     const wrapper = $('#wrapper');
@@ -144,7 +145,7 @@ $(() => {
 
       // Set textured background if set
       if (dotclear.zenEdit.background !== '') {
-        $('body').css('background-image', `url(index.php?pf=zenEdit/img/background/${dotclear.zenEdit.background})`);
+        $('body').css('background-image', `url(${dotclear.zenEdit.base_url}${dotclear.zenEdit.background})`);
         if (dotclear.zenEdit.background.substr(0, 5) == 'dark/') {
           // Dark background
           dotclear.zenEdit.color = 'rgb(241,241,241)';

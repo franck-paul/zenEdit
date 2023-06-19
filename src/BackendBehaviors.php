@@ -51,6 +51,8 @@ class BackendBehaviors
                 'background'   => $background,
                 'smallMargins' => $small_margins,
                 'mode'         => 0,
+                'icon'         => urldecode(dcPage::getPF(My::id() . '/icon.svg')),
+                'base_url'     => urldecode(dcPage::getPF(My::id() . '/img/background/')),
             ],
         ]) .
         dcPage::jsModuleLoad(My::id() . '/js/post.js', dcCore::app()->getVersion(My::id()));
@@ -71,6 +73,9 @@ class BackendBehaviors
     public static function adminPreferencesHeaders(): string
     {
         return
+        dcPage::jsJson('zenedit_prefs', [
+            'base_url' => urldecode(dcPage::getPF(My::id() . '/img/background/')),
+        ]) .
         dcPage::jsModuleLoad(My::id() . '/js/preferences.js', dcCore::app()->getVersion(My::id())) .
         dcPage::cssModuleLoad(My::id() . '/css/style.css', 'screen', dcCore::app()->getVersion(My::id()));
     }

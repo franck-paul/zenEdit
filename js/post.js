@@ -110,7 +110,7 @@ $(() => {
   };
 
   jsToolBar.prototype.elements.zenEdit.context = 'post';
-  jsToolBar.prototype.elements.zenEdit.icon = dotclear.zenEdit.icon; // 'index.php?pf=zenEdit/icon.svg';
+  jsToolBar.prototype.elements.zenEdit.icon = dotclear.zenEdit.icon;
   jsToolBar.prototype.elements.zenEdit.fn.wiki = () => dotclear.zenEdit.switch();
   jsToolBar.prototype.elements.zenEdit.fn.xhtml = () => dotclear.zenEdit.switch();
   jsToolBar.prototype.elements.zenEdit.fn.wysiwyg = () => dotclear.zenEdit.switch();

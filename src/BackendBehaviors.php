@@ -15,7 +15,7 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\zenEdit;
 
 use dcCore;
-use dcPage;
+use Dotclear\Core\Backend\Page;
 use Dotclear\Helper\Html\Form\Checkbox;
 use Dotclear\Helper\Html\Form\Fieldset;
 use Dotclear\Helper\Html\Form\Hidden;
@@ -39,7 +39,7 @@ class BackendBehaviors
         $small_margins = dcCore::app()->auth->user_prefs->interface->zenedit_small_margins ? '1' : '0';
 
         return
-        dcPage::jsJson('zenedit', [
+        Page::jsJson('zenedit', [
             'msg' => [
                 'zenEdit' => [
                     'show' => __('Switch to zen mode'),
@@ -51,11 +51,11 @@ class BackendBehaviors
                 'background'   => $background,
                 'smallMargins' => $small_margins,
                 'mode'         => 0,
-                'icon'         => urldecode(dcPage::getPF(My::id() . '/icon.svg')),
-                'base_url'     => urldecode(dcPage::getPF(My::id() . '/img/background/')),
+                'icon'         => urldecode(Page::getPF(My::id() . '/icon.svg')),
+                'base_url'     => urldecode(Page::getPF(My::id() . '/img/background/')),
             ],
         ]) .
-        dcPage::jsModuleLoad(My::id() . '/js/post.js', dcCore::app()->getVersion(My::id()));
+        My::jsLoad('post.js');
     }
 
     public static function adminBeforeUserUpdate()
@@ -73,11 +73,11 @@ class BackendBehaviors
     public static function adminPreferencesHeaders(): string
     {
         return
-        dcPage::jsJson('zenedit_prefs', [
-            'base_url' => urldecode(dcPage::getPF(My::id() . '/img/background/')),
+        Page::jsJson('zenedit_prefs', [
+            'base_url' => urldecode(Page::getPF(My::id() . '/img/background/')),
         ]) .
-        dcPage::jsModuleLoad(My::id() . '/js/preferences.js', dcCore::app()->getVersion(My::id())) .
-        dcPage::cssModuleLoad(My::id() . '/css/style.css', 'screen', dcCore::app()->getVersion(My::id()));
+        My::jsLoad('preferences.js') .
+        My::cssLoad('style.css');
     }
 
     public static function adminPreferencesForm()
@@ -131,7 +131,7 @@ class BackendBehaviors
                 (new Text('span', '&nbsp;'))
                     ->id('zenedit_sample')
                     ->class('fieldset')
-                    ->extra('style="background-image:url(' . urldecode(dcPage::getPF(My::id() . '/img/background/' . $background)) . ')"'),
+                    ->extra('style="background-image:url(' . urldecode(Page::getPF(My::id() . '/img/background/' . $background)) . ')"'),
             ];
         } else {
             $textures = [(new Hidden('zenedit_background', ''))];

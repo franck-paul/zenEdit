@@ -2,7 +2,7 @@
 'use strict';
 
 $(() => {
-  const base_url = dotclear.getData('zenedit_prefs').base_url;
+  const { base_url } = dotclear.getData('zenedit_prefs');
   const updateSampleBackground = () => {
     // Change background image of #zenedit_sample
     const background = $('#zenedit_background').val();

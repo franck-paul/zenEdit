@@ -28,7 +28,7 @@ use Exception;
 
 class BackendBehaviors
 {
-    public static function adminPostEditor($editor = ''): string
+    public static function adminPostEditor(string $editor = ''): string
     {
         if ($editor !== 'dcLegacyEditor') {
             return '';
@@ -58,7 +58,7 @@ class BackendBehaviors
         My::jsLoad('post.js');
     }
 
-    public static function adminBeforeUserUpdate()
+    public static function adminBeforeUserUpdate(): string
     {
         // Get and store user's prefs for plugin options
         try {
@@ -68,6 +68,8 @@ class BackendBehaviors
         } catch (Exception $e) {
             dcCore::app()->error->add($e->getMessage());
         }
+
+        return '';
     }
 
     public static function adminPreferencesHeaders(): string
@@ -80,7 +82,7 @@ class BackendBehaviors
         My::cssLoad('style.css');
     }
 
-    public static function adminPreferencesForm()
+    public static function adminPreferencesForm(): string
     {
         $textures_combo = [__('None') => ''];
 
@@ -158,5 +160,7 @@ class BackendBehaviors
             ]),
         ])
         ->render();
+
+        return '';
     }
 }

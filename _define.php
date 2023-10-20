@@ -17,13 +17,10 @@ $this->registerModule(
     '4.0',
     [
         'requires'    => [['core', '2.28']],
-        'permissions' => dcCore::app()->auth->makePermissions([
-            dcAuth::PERMISSION_USAGE,
-            dcAuth::PERMISSION_CONTENT_ADMIN,
-        ]),
-        'type'     => 'plugin',
-        'priority' => 1010, // Must be higher than dcLegacyEditor/dcCKEditor priority (ie 1000)
-        'settings' => [
+        'permissions' => 'My',
+        'type'        => 'plugin',
+        'priority'    => 1010, // Must be higher than dcLegacyEditor/dcCKEditor priority (ie 1000)
+        'settings'    => [
             'pref' => '#user-options.zenEdit_prefs',
         ],
 

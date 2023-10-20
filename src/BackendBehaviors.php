@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\zenEdit;
 
-use dcCore;
+use Dotclear\App;
 use Dotclear\Core\Backend\Page;
 use Dotclear\Helper\Html\Form\Checkbox;
 use Dotclear\Helper\Html\Form\Fieldset;
@@ -34,9 +34,9 @@ class BackendBehaviors
             return '';
         }
 
-        $full_screen   = dcCore::app()->auth->user_prefs->interface->zenedit_fullscreen ? '1' : '0';
-        $background    = dcCore::app()->auth->user_prefs->interface->zenedit_background;
-        $small_margins = dcCore::app()->auth->user_prefs->interface->zenedit_small_margins ? '1' : '0';
+        $full_screen   = App::auth()->prefs()->interface->zenedit_fullscreen ? '1' : '0';
+        $background    = App::auth()->prefs()->interface->zenedit_background;
+        $small_margins = App::auth()->prefs()->interface->zenedit_small_margins ? '1' : '0';
 
         return
         Page::jsJson('zenedit', [
@@ -62,11 +62,11 @@ class BackendBehaviors
     {
         // Get and store user's prefs for plugin options
         try {
-            dcCore::app()->auth->user_prefs->interface->put('zenedit_fullscreen', !empty($_POST['zenedit_fullscreen']), 'boolean');
-            dcCore::app()->auth->user_prefs->interface->put('zenedit_background', (!empty($_POST['zenedit_background']) ? $_POST['zenedit_background'] : ''));
-            dcCore::app()->auth->user_prefs->interface->put('zenedit_small_margins', !empty($_POST['zenedit_small_margins']), 'boolean');
+            App::auth()->prefs()->interface->put('zenedit_fullscreen', !empty($_POST['zenedit_fullscreen']), 'boolean');
+            App::auth()->prefs()->interface->put('zenedit_background', (!empty($_POST['zenedit_background']) ? $_POST['zenedit_background'] : ''));
+            App::auth()->prefs()->interface->put('zenedit_small_margins', !empty($_POST['zenedit_small_margins']), 'boolean');
         } catch (Exception $e) {
-            dcCore::app()->error->add($e->getMessage());
+            App::error()->add($e->getMessage());
         }
 
         return '';
@@ -118,7 +118,7 @@ class BackendBehaviors
         }
 
         // Add fieldset for plugin options
-        $background = dcCore::app()->auth->user_prefs->interface->zenedit_background;
+        $background = App::auth()->prefs()->interface->zenedit_background;
 
         // Prepare texture selector
         if (count($textures_combo) > 1) {
@@ -144,7 +144,7 @@ class BackendBehaviors
         ->legend((new Legend(__('Zen mode for dcLegacyEditor'))))
         ->fields([
             (new Para())->items([
-                (new Checkbox('zenedit_fullscreen', dcCore::app()->auth->user_prefs->interface->zenedit_fullscreen))
+                (new Checkbox('zenedit_fullscreen', App::auth()->prefs()->interface->zenedit_fullscreen))
                     ->value(1)
                     ->label((new Label(__('Try to activate full screen in editor\'s zen mode'), Label::INSIDE_TEXT_AFTER))),
             ]),
@@ -154,7 +154,7 @@ class BackendBehaviors
             ]),
             ...$textures,   // See above
             (new Para())->items([
-                (new Checkbox('zenedit_small_margins', dcCore::app()->auth->user_prefs->interface->zenedit_small_margins))
+                (new Checkbox('zenedit_small_margins', App::auth()->prefs()->interface->zenedit_small_margins))
                     ->value(1)
                     ->label((new Label(__('Small margins (useful on small screens)'), Label::INSIDE_TEXT_AFTER))),
             ]),

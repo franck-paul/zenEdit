@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace Dotclear\Plugin\zenEdit;
 
-use dcCore;
+use Dotclear\App;
 use Dotclear\Core\Process;
 use Exception;
 
@@ -33,12 +33,12 @@ class Install extends Process
 
         try {
             // Default state is active for fullscreen
-            $preferences = dcCore::app()->auth->user_prefs->interface;
-            $preferences->put('zenedit_fullscreen', 1, 'boolean', 'Try to activate full screen in zen mode', false, true);
-            $preferences->put('zenedit_background', '', 'string', 'Background image in zen mode', false, true);
-            $preferences->put('zenedit_small_margins', 0, 'boolean', 'Try to activate full screen in zen mode', false, true);
+            $preferences = App::auth()->prefs();
+            $preferences->interface->put('zenedit_fullscreen', 1, 'boolean', 'Try to activate full screen in zen mode', false, true);
+            $preferences->interface->put('zenedit_background', '', 'string', 'Background image in zen mode', false, true);
+            $preferences->interface->put('zenedit_small_margins', 0, 'boolean', 'Try to activate full screen in zen mode', false, true);
         } catch (Exception $e) {
-            dcCore::app()->error->add($e->getMessage());
+            App::error()->add($e->getMessage());
         }
 
         return true;

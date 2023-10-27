@@ -63,10 +63,10 @@ class BackendBehaviors
         // Get and store user's prefs for plugin options
         try {
             App::auth()->prefs()->interface->put('zenedit_fullscreen', !empty($_POST['zenedit_fullscreen']), 'boolean');
-            App::auth()->prefs()->interface->put('zenedit_background', (!empty($_POST['zenedit_background']) ? $_POST['zenedit_background'] : ''));
+            App::auth()->prefs()->interface->put('zenedit_background', (empty($_POST['zenedit_background']) ? '' : $_POST['zenedit_background']));
             App::auth()->prefs()->interface->put('zenedit_small_margins', !empty($_POST['zenedit_small_margins']), 'boolean');
-        } catch (Exception $e) {
-            App::error()->add($e->getMessage());
+        } catch (Exception $exception) {
+            App::error()->add($exception->getMessage());
         }
 
         return '';
@@ -95,11 +95,12 @@ class BackendBehaviors
         $textures_root = implode(DIRECTORY_SEPARATOR, [$base_path, 'light']);
         if (is_dir($textures_root) && is_readable($textures_root) && ($d = @dir($textures_root)) !== false) {
             while (($entry = $d->read()) !== false) {
-                if ($entry != '.' && $entry != '..' && substr($entry, 0, 1) != '.' && is_readable($textures_root . '/' . $entry)) {
+                if ($entry != '.' && $entry != '..' && !str_starts_with($entry, '.') && is_readable($textures_root . '/' . $entry)) {
                     $textures_combo_light[substr($entry, 0, -4)] = 'light/' . $entry;
                 }
             }
-            if (count($textures_combo_light)) {
+
+            if ($textures_combo_light !== []) {
                 $textures_combo[__('Light backgrounds')] = $textures_combo_light;
             }
         }
@@ -108,11 +109,12 @@ class BackendBehaviors
         $textures_root = implode(DIRECTORY_SEPARATOR, [$base_path, 'dark']);
         if (is_dir($textures_root) && is_readable($textures_root) && ($d = @dir($textures_root)) !== false) {
             while (($entry = $d->read()) !== false) {
-                if ($entry != '.' && $entry != '..' && substr($entry, 0, 1) != '.' && is_readable($textures_root . '/' . $entry)) {
+                if ($entry != '.' && $entry != '..' && !str_starts_with($entry, '.') && is_readable($textures_root . '/' . $entry)) {
                     $textures_combo_dark[substr($entry, 0, -4)] = 'dark/' . $entry;
                 }
             }
-            if (count($textures_combo_dark)) {
+
+            if ($textures_combo_dark !== []) {
                 $textures_combo[__('Dark backgrounds')] = $textures_combo_dark;
             }
         }

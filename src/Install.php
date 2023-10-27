@@ -37,8 +37,8 @@ class Install extends Process
             $preferences->interface->put('zenedit_fullscreen', 1, 'boolean', 'Try to activate full screen in zen mode', false, true);
             $preferences->interface->put('zenedit_background', '', 'string', 'Background image in zen mode', false, true);
             $preferences->interface->put('zenedit_small_margins', 0, 'boolean', 'Try to activate full screen in zen mode', false, true);
-        } catch (Exception $e) {
-            App::error()->add($e->getMessage());
+        } catch (Exception $exception) {
+            App::error()->add($exception->getMessage());
         }
 
         return true;

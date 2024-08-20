@@ -146,7 +146,7 @@ $(() => {
       // Set textured background if set
       if (dotclear.zenEdit.background !== '') {
         $('body').css('background-image', `url(${dotclear.zenEdit.base_url}${dotclear.zenEdit.background})`);
-        if (dotclear.zenEdit.background.substr(0, 5) == 'dark/') {
+        if (dotclear.zenEdit.background.substring(0, 4) == 'dark/') {
           // Dark background
           dotclear.zenEdit.color = 'rgb(241,241,241)';
         }

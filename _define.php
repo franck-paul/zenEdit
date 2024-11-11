@@ -14,7 +14,7 @@ $this->registerModule(
     'zenEdit',
     'Zen mode for dcLegacyEditor',
     'Franck Paul',
-    '5.3',
+    '5.3.1',
     [
         'requires'    => [['core', '2.28']],
         'permissions' => 'My',

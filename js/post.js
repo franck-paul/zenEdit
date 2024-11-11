@@ -88,9 +88,9 @@
   };
 })();
 
-// Toolbar button for series
+// Toolbar button
 
-$(() => {
+dotclear.ready(() => {
   dotclear.mergeDeep(dotclear, dotclear.getData('zenedit'));
 
   jsToolBar.prototype.elements.zenEditSpace = {

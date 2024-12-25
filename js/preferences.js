@@ -1,7 +1,7 @@
 /*global $ */
 'use strict';
 
-$(() => {
+dotclear.ready(() => {
   const { base_url } = dotclear.getData('zenedit_prefs');
   const updateSampleBackground = () => {
     // Change background image of #zenedit_sample

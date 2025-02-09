@@ -35,10 +35,6 @@ class BackendBehaviors
             return '';
         }
 
-        $full_screen   = App::auth()->prefs()->interface->zenedit_fullscreen ? '1' : '0';
-        $background    = App::auth()->prefs()->interface->zenedit_background;
-        $small_margins = App::auth()->prefs()->interface->zenedit_small_margins ? '1' : '0';
-
         return
         Page::jsJson('zenedit', [
             'msg' => [
@@ -48,10 +44,10 @@ class BackendBehaviors
                 ],
             ],
             'zenEdit' => [
-                'fullScreen'   => $full_screen,
-                'background'   => $background,
-                'smallMargins' => $small_margins,
-                'mode'         => 0,
+                'fullScreen'   => App::auth()->prefs()->interface->zenedit_fullscreen,
+                'background'   => App::auth()->prefs()->interface->zenedit_background,
+                'smallMargins' => App::auth()->prefs()->interface->zenedit_small_margins,
+                'zenMode'      => false,
                 'icon'         => urldecode(Page::getPF(My::id() . '/icon.svg')),
                 'base_url'     => urldecode(Page::getPF(My::id() . '/img/background/')),
             ],

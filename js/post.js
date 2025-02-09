@@ -1,4 +1,4 @@
-/*global $, jQuery, dotclear, jsToolBar, fullScreenApi */
+/*global jQuery, dotclear, jsToolBar, fullScreenApi */
 'use strict';
 
 (() => {
@@ -18,7 +18,7 @@
     for (let i = 0, il = browserPrefixes.length; i < il; i++) {
       fullScreenApi.prefix = browserPrefixes[i];
 
-      if (typeof document[`${fullScreenApi.prefix}CancelFullScreen`] != 'undefined') {
+      if (typeof document[`${fullScreenApi.prefix}CancelFullScreen`] !== 'undefined') {
         fullScreenApi.supportsFullScreen = true;
         break;
       }
@@ -50,7 +50,7 @@
   }
 
   // jQuery plugin
-  if (typeof jQuery != 'undefined') {
+  if (typeof jQuery !== 'undefined') {
     jQuery.fn.requestFullScreen = function () {
       return this.each(function () {
         if (fullScreenApi.supportsFullScreen) {
@@ -67,18 +67,18 @@
 // utilities functions
 (() => {
   // Return all element not belonging to context
-  $.fn.allBut = function (context) {
-    let otherList = $();
-    let processList = $(context || 'body').children();
+  jQuery.fn.allBut = function (context) {
+    let otherList = jQuery();
+    let processList = jQuery(context || 'body').children();
 
     while (processList.length > 0) {
       const cElem = processList.first();
       processList = processList.slice(1);
 
-      if (cElem.filter(this).length != this.length) {
+      if (cElem.filter(this).length !== this.length) {
         if (cElem.has(this).length > 0) {
           processList = processList.add(cElem.children());
-        } else if (cElem.css('display') != 'none') {
+        } else if (cElem.css('display') !== 'none') {
           // Get only not hidden element
           otherList = otherList.add(cElem);
         }
@@ -117,103 +117,109 @@ dotclear.ready(() => {
   jsToolBar.prototype.elements.zenEdit.fn.markdown = () => dotclear.zenEdit.switch();
 
   dotclear.zenEdit.switch = () => {
-    const wrapper = $('#wrapper');
-    const main = $('#main');
-    const page = $('#content');
-    const entry = $('#entry-wrapper');
-    const container = $('div#entry-content');
+    const body = document.querySelector('body');
+    const wrapper = document.getElementById('wrapper');
+    const main = document.getElementById('main');
+    const page = document.getElementById('content');
+    const entry = document.getElementById('entry-wrapper');
+    const container = document.getElementById('entry-content');
+    const button = document.querySelector('button.jstb_zenEdit');
 
-    if (dotclear.zenEdit.mode == 0) {
-      // Switch into zen mode
+    if (dotclear.zenEdit.zenMode) {
+      // Exit from zen mode
 
-      dotclear.zenEdit.prop = {
-        // Get current status of some DOM element
-        body_tc: $('body').css('color'),
-        body_bc: $('body').css('background-color'),
-        page_bc: page.css('background-color'),
-        main_bc: main.css('background-color'),
-        main_bi: main.css('background-image'),
-        container_mt: container.css('margin-top'),
-        container_ml: container.css('margin-left'),
-        container_mr: container.css('margin-right'),
-        hide_mm: wrapper.hasClass('hide-mm'),
-        wrapper_bc: wrapper.css('background-color'),
-        wrapper_bi: wrapper.css('background-image'),
-      };
-
-      dotclear.zenEdit.color = 'rgb(101,101,101)';
-
-      // Set textured background if set
+      // Reset textured background if set
       if (dotclear.zenEdit.background !== '') {
-        $('body').css('background-image', `url(${dotclear.zenEdit.base_url}${dotclear.zenEdit.background})`);
-        if (dotclear.zenEdit.background.substring(0, 4) == 'dark/') {
-          // Dark background
-          dotclear.zenEdit.color = 'rgb(241,241,241)';
-        }
+        body.style.backgroundImage = 'none';
       }
 
-      // Hack some CSS attributes
-      container.css('margin-top', '3em');
-      if (dotclear.zenEdit.smallMargins == '1') {
-        container.css('margin-left', dotclear.zenEdit.prop.hide_mm ? entry.css('margin-right') : '-13em');
-        container.css('margin-right', '0');
-      } else {
-        container.css('margin-left', dotclear.zenEdit.prop.hide_mm ? '14.5em' : '1em');
-        container.css('margin-right', '14.5em');
+      // Restore some CSS attributes as before
+      container.style.marginTop = dotclear.zenEdit.prop.container_mt;
+      container.style.marginLeft = dotclear.zenEdit.prop.container_ml;
+      container.style.marginRight = dotclear.zenEdit.prop.container_mr;
+      body.style.color = dotclear.zenEdit.prop.body_tc;
+      body.style.backgroundColor = dotclear.zenEdit.prop.body_bc;
+      wrapper.style.backgroundColor = dotclear.zenEdit.prop.wrapper_bc;
+      wrapper.style.backgroundImage = dotclear.zenEdit.prop.wrapper_bi;
+      page.style.backgroundColor = dotclear.zenEdit.prop.page_bc;
+      main.style.backgroundColor = dotclear.zenEdit.prop.main_bc;
+      main.style.backgroundImage = dotclear.zenEdit.prop.main_bi;
+
+      // Show everything having been hidden before
+      dotclear.zenEdit.stack.show();
+
+      // Restore toolbar button title
+      jsToolBar.prototype.elements.zenEdit.title = dotclear.msg.zenEdit.show;
+      button.setAttribute('title', dotclear.msg.zenEdit.show);
+
+      dotclear.zenEdit.zenMode = false;
+
+      if (dotclear.zenEdit.fullScreen && fullScreenApi.supportsFullScreen && fullScreenApi.isFullScreen) {
+        fullScreenApi.cancelFullScreen(document.documentElement);
       }
-      $('body').css('color', dotclear.zenEdit.color).css('background-color', 'rgb(248,248,248)');
-      wrapper.css('background-color', 'transparent').css('background-image', 'none');
-      page.css('background-color', 'transparent');
-      main.css('background-color', 'transparent').css('background-image', 'none');
 
-      // Hide everything not mandatory
-      dotclear.zenEdit.stack = container.allBut();
-      dotclear.zenEdit.stack.hide();
-
-      // Change toolbar button title and icon
-      jsToolBar.prototype.elements.zenEdit.title = dotclear.msg.zenEdit.hide;
-      //  Don't know how to refresh this button !?! So, jQuery will help me
-      $('button.jstb_zenEdit').attr('title', dotclear.msg.zenEdit.hide);
-
-      dotclear.zenEdit.mode = 1;
-
-      if (dotclear.zenEdit.fullScreen == '1' && fullScreenApi.supportsFullScreen) {
-        fullScreenApi.requestFullScreen(document.documentElement);
-      }
       return;
     }
 
-    // Exit from zen mode
+    // Switch into zen mode
 
-    // Reset textured background if set
+    dotclear.zenEdit.prop = {
+      // Get current status of some DOM element
+      body_tc: body.style.color,
+      body_bc: body.style.backgroundColor,
+      page_bc: page.style.backgroundColor,
+      main_bc: main.style.backgroundColor,
+      main_bi: main.style.backgroundImage,
+      container_mt: container.style.marginTop,
+      container_ml: container.style.marginLeft,
+      container_mr: container.style.marginRight,
+      hide_mm: wrapper.classList.contains('hide-mm'),
+      wrapper_bc: wrapper.style.backgroundColor,
+      wrapper_bi: wrapper.style.backgroundImage,
+    };
+
+    dotclear.zenEdit.color = 'rgb(101,101,101)';
+
+    // Set textured background if set
     if (dotclear.zenEdit.background !== '') {
-      $('body').css('background-image', 'none');
+      body.style.backgroundImage = `url(${dotclear.zenEdit.base_url}${dotclear.zenEdit.background})`;
+      if (dotclear.zenEdit.background.substring(0, 5) === 'dark/') {
+        // Dark background
+        dotclear.zenEdit.color = 'rgb(241,241,241)';
+      }
     }
 
-    // Restore some CSS attributes as before
-    container.css('margin-top', dotclear.zenEdit.prop.container_mt);
-    container.css('margin-left', dotclear.zenEdit.prop.container_ml);
-    container.css('margin-right', dotclear.zenEdit.prop.container_mr);
-    $('body').css('color', dotclear.zenEdit.prop.body_tc).css('background-color', dotclear.zenEdit.prop.body_bc);
-    wrapper.css('background-color', dotclear.zenEdit.prop.wrapper_bc).css('background-image', dotclear.zenEdit.prop.wrapper_bi);
-    page.css('background-color', dotclear.zenEdit.prop.page_bc);
-    main.css('background-color', dotclear.zenEdit.prop.main_bc).css('background-image', dotclear.zenEdit.prop.main_bi);
+    // Hack some CSS attributes
+    container.style.marginTop = '3em';
+    if (dotclear.zenEdit.smallMargins) {
+      container.style.marginLeft = dotclear.zenEdit.prop.hide_mm ? entry.style.marginRight : '-13em';
+      container.style.marginRight = '0';
+    } else {
+      container.style.marginLeft = dotclear.zenEdit.prop.hide_mm ? '14.5em' : '1em';
+      container.style.marginRight = '14.5em';
+    }
+    body.style.color = dotclear.zenEdit.color;
+    body.style.backgroundColor = 'rgb(248,248,248)';
+    wrapper.style.backgroundColor = 'transparent';
+    wrapper.style.backgroundImage = 'none';
+    page.style.backgroundColor = 'transparent';
+    main.style.backgroundColor = 'transparent';
+    main.style.backgroundImage = 'none';
 
-    // Show everything having been hidden before
-    dotclear.zenEdit.stack.show();
+    // Hide everything not mandatory
+    dotclear.zenEdit.stack = jQuery(container).allBut();
+    dotclear.zenEdit.stack.hide();
 
-    // Restore toolbar button title
-    jsToolBar.prototype.elements.zenEdit.title = dotclear.msg.zenEdit.show;
-    //  Don't know how to refresh this button !?! So, jQuery will help me
-    $('button.jstb_zenEdit').attr('title', dotclear.msg.zenEdit.show);
+    // Change toolbar button title and icon
+    jsToolBar.prototype.elements.zenEdit.title = dotclear.msg.zenEdit.hide;
+    button.setAttribute('title', dotclear.msg.zenEdit.hide);
 
-    dotclear.zenEdit.mode = 0;
+    dotclear.zenEdit.zenMode = true;
 
-    if (dotclear.zenEdit.fullScreen == '1' && fullScreenApi.supportsFullScreen && fullScreenApi.isFullScreen) {
-      fullScreenApi.cancelFullScreen(document.documentElement);
+    if (dotclear.zenEdit.fullScreen && fullScreenApi.supportsFullScreen) {
+      fullScreenApi.requestFullScreen(document.documentElement);
     }
   };
 
-  jsToolBar.prototype.elements.zenEdit.title =
-    dotclear.zenEdit.mode == 0 ? dotclear.msg.zenEdit.show : dotclear.msg.zenEdit.hide;
+  jsToolBar.prototype.elements.zenEdit.title = dotclear.zenEdit.zenMode ? dotclear.msg.zenEdit.hide : dotclear.msg.zenEdit.show;
 });

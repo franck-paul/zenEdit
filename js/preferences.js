@@ -1,13 +1,14 @@
-/*global $ */
+/*global dotclear */
 'use strict';
 
 dotclear.ready(() => {
   const { base_url } = dotclear.getData('zenedit_prefs');
-  const updateSampleBackground = () => {
-    // Change background image of #zenedit_sample
-    const background = $('#zenedit_background').val();
-    $('#zenedit_sample').css('background-image', `url(${base_url}${background})`);
-  };
+  const background = document.getElementById('zenedit_background');
 
-  $('#zenedit_background').on('change', updateSampleBackground).on('keyup', updateSampleBackground);
+  if (background) {
+    background.addEventListener('change', (event) => {
+      // Change background image sample
+      document.getElementById('zenedit_sample').style.backgroundImage = `url(${base_url}${event.target.value})`;
+    });
+  }
 });

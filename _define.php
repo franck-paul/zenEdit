@@ -18,7 +18,7 @@ $this->registerModule(
     '5.4',
     [
         'date'        => '2025-02-09T10:13:42+0100',
-        'requires'    => [['core', '2.28']],
+        'requires'    => [['core', '2.34']],
         'permissions' => 'My',
         'type'        => 'plugin',
         'priority'    => 1010, // Must be higher than dcLegacyEditor/dcCKEditor priority (ie 1000)
@@ -29,5 +29,6 @@ $this->registerModule(
         'details'    => 'https://open-time.net/?q=zenEdit',
         'support'    => 'https://github.com/franck-paul/zenEdit',
         'repository' => 'https://raw.githubusercontent.com/franck-paul/zenEdit/main/dcstore.xml',
+        'license'    => 'gpl2',
     ]
 );

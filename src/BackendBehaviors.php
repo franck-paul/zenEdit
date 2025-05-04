@@ -24,6 +24,7 @@ use Dotclear\Helper\Html\Form\Label;
 use Dotclear\Helper\Html\Form\Legend;
 use Dotclear\Helper\Html\Form\Para;
 use Dotclear\Helper\Html\Form\Select;
+use Dotclear\Helper\Html\Form\Span;
 use Dotclear\Helper\Html\Form\Text;
 use Exception;
 
@@ -129,7 +130,7 @@ class BackendBehaviors
                     ->label((new Label(__('Background:'), Label::INSIDE_TEXT_BEFORE))),
                 ]),
                 (new Text(null, ' ')),
-                (new Text('span', '&nbsp;'))
+                (new Span('&nbsp;'))
                     ->id('zenedit_sample')
                     ->class('fieldset')
                     ->extra('style="background-image:url(' . urldecode(Page::getPF(My::id() . '/img/background/' . $background)) . ')"'),

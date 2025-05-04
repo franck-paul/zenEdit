@@ -15,9 +15,9 @@ $this->registerModule(
     'zenEdit',
     'Zen mode for dcLegacyEditor',
     'Franck Paul',
-    '5.4',
+    '6.0',
     [
-        'date'        => '2025-02-09T10:13:42+0100',
+        'date'        => '2025-05-04T12:43:14+0200',
         'requires'    => [['core', '2.34']],
         'permissions' => 'My',
         'type'        => 'plugin',

@@ -111,6 +111,7 @@ dotclear.ready(() => {
 
   jsToolBar.prototype.elements.zenEdit.context = 'post';
   jsToolBar.prototype.elements.zenEdit.icon = dotclear.zenEdit.icon;
+  jsToolBar.prototype.elements.zenEdit.icon_dark = dotclear.zenEdit.icon_dark;
   jsToolBar.prototype.elements.zenEdit.fn.wiki = () => dotclear.zenEdit.switch();
   jsToolBar.prototype.elements.zenEdit.fn.xhtml = () => dotclear.zenEdit.switch();
   jsToolBar.prototype.elements.zenEdit.fn.wysiwyg = () => dotclear.zenEdit.switch();

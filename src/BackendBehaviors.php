@@ -50,6 +50,7 @@ class BackendBehaviors
                 'smallMargins' => App::auth()->prefs()->interface->zenedit_small_margins,
                 'zenMode'      => false,
                 'icon'         => urldecode(Page::getPF(My::id() . '/icon.svg')),
+                'icon_dark'    => urldecode(Page::getPF(My::id() . '/icon-dark.svg')),
                 'base_url'     => urldecode(Page::getPF(My::id() . '/img/background/')),
             ],
         ]) .

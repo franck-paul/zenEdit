@@ -126,7 +126,7 @@ class BackendBehaviors
             $textures = [
                 (new Para())->items([
                     (new Select('zenedit_background'))
-                    ->items($textures_combo)    // @phpstan-ignore-line
+                    ->items($textures_combo)
                     ->default($background)
                     ->label((new Label(__('Background:'), Label::INSIDE_TEXT_BEFORE))),
                 ]),

@@ -18,7 +18,7 @@ $this->registerModule(
     '6.1',
     [
         'date'        => '2025-06-05T14:37:58+0200',
-        'requires'    => [['core', '2.34']],
+        'requires'    => [['core', '2.36']],
         'permissions' => 'My',
         'type'        => 'plugin',
         'priority'    => 1010, // Must be higher than dcLegacyEditor/dcCKEditor priority (ie 1000)

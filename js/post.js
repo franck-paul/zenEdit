@@ -94,6 +94,7 @@ dotclear.ready(() => {
   dotclear.mergeDeep(dotclear, dotclear.getData('zenedit'));
 
   jsToolBar.prototype.elements.zenEdit = {
+    group: 'editor',
     type: 'button',
     title: 'Zen',
     fn: {},

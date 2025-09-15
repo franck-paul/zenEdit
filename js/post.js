@@ -93,16 +93,6 @@
 dotclear.ready(() => {
   dotclear.mergeDeep(dotclear, dotclear.getData('zenedit'));
 
-  jsToolBar.prototype.elements.zenEditSpace = {
-    type: 'space',
-    format: {
-      wysiwyg: true,
-      wiki: true,
-      xhtml: true,
-      markdown: true,
-    },
-  };
-
   jsToolBar.prototype.elements.zenEdit = {
     type: 'button',
     title: 'Zen',

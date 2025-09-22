@@ -16,7 +16,6 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\zenEdit;
 
 use Dotclear\App;
-use Dotclear\Core\Backend\Page;
 use Dotclear\Helper\Html\Form\Checkbox;
 use Dotclear\Helper\Html\Form\Fieldset;
 use Dotclear\Helper\Html\Form\Hidden;
@@ -37,7 +36,7 @@ class BackendBehaviors
         }
 
         return
-        Page::jsJson('zenedit', [
+        App::backend()->page()->jsJson('zenedit', [
             'msg' => [
                 'zenEdit' => [
                     'show' => __('Switch to zen mode'),
@@ -49,9 +48,9 @@ class BackendBehaviors
                 'background'   => App::auth()->prefs()->interface->zenedit_background,
                 'smallMargins' => App::auth()->prefs()->interface->zenedit_small_margins,
                 'zenMode'      => false,
-                'icon'         => urldecode(Page::getPF(My::id() . '/icon.svg')),
-                'icon_dark'    => urldecode(Page::getPF(My::id() . '/icon-dark.svg')),
-                'base_url'     => urldecode(Page::getPF(My::id() . '/img/background/')),
+                'icon'         => urldecode((string) App::backend()->page()->getPF(My::id() . '/icon.svg')),
+                'icon_dark'    => urldecode((string) App::backend()->page()->getPF(My::id() . '/icon-dark.svg')),
+                'base_url'     => urldecode((string) App::backend()->page()->getPF(My::id() . '/img/background/')),
             ],
         ]) .
         My::jsLoad('post.js');
@@ -74,8 +73,8 @@ class BackendBehaviors
     public static function adminPreferencesHeaders(): string
     {
         return
-        Page::jsJson('zenedit_prefs', [
-            'base_url' => urldecode(Page::getPF(My::id() . '/img/background/')),
+        App::backend()->page()->jsJson('zenedit_prefs', [
+            'base_url' => urldecode((string) App::backend()->page()->getPF(My::id() . '/img/background/')),
         ]) .
         My::jsLoad('preferences.js') .
         My::cssLoad('style.css');
@@ -134,7 +133,7 @@ class BackendBehaviors
                 (new Span('&nbsp;'))
                     ->id('zenedit_sample')
                     ->class('fieldset')
-                    ->extra('style="background-image:url(' . urldecode(Page::getPF(My::id() . '/img/background/' . $background)) . ')"'),
+                    ->extra('style="background-image:url(' . urldecode((string) App::backend()->page()->getPF(My::id() . '/img/background/' . $background)) . ')"'),
             ];
         } else {
             $textures = [(new Hidden('zenedit_background', ''))];

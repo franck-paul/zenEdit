@@ -118,7 +118,7 @@ class BackendBehaviors
         }
 
         // Add fieldset for plugin options
-        $background = App::auth()->prefs()->interface->zenedit_background;
+        $background = is_string($background = App::auth()->prefs()->interface->zenedit_background) ? $background : null;
 
         // Prepare texture selector
         if (count($textures_combo) > 1) {
@@ -139,12 +139,15 @@ class BackendBehaviors
             $textures = [(new Hidden('zenedit_background', ''))];
         }
 
+        $fullscreen    = is_scalar($fullscreen = App::auth()->prefs()->interface->zenedit_fullscreen)       && (bool) $fullscreen;
+        $small_margins = is_scalar($small_margins = App::auth()->prefs()->interface->zenedit_small_margins) && (bool) $small_margins;
+
         echo
         (new Fieldset('zenEdit_prefs'))
         ->legend((new Legend(__('Zen mode for dcLegacyEditor'))))
         ->fields([
             (new Para())->items([
-                (new Checkbox('zenedit_fullscreen', App::auth()->prefs()->interface->zenedit_fullscreen))
+                (new Checkbox('zenedit_fullscreen', $fullscreen))
                     ->value(1)
                     ->label((new Label(__('Try to activate full screen in editor\'s zen mode'), Label::INSIDE_TEXT_AFTER))),
             ]),
@@ -154,7 +157,7 @@ class BackendBehaviors
             ]),
             ...$textures,   // See above
             (new Para())->items([
-                (new Checkbox('zenedit_small_margins', App::auth()->prefs()->interface->zenedit_small_margins))
+                (new Checkbox('zenedit_small_margins', $small_margins))
                     ->value(1)
                     ->label((new Label(__('Small margins (useful on small screens)'), Label::INSIDE_TEXT_AFTER))),
             ]),

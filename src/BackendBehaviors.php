@@ -60,9 +60,9 @@ class BackendBehaviors
     {
         // Get and store user's prefs for plugin options
         try {
-            App::auth()->prefs()->interface->put('zenedit_fullscreen', !empty($_POST['zenedit_fullscreen']), 'boolean');
-            App::auth()->prefs()->interface->put('zenedit_background', (empty($_POST['zenedit_background']) ? '' : $_POST['zenedit_background']));
-            App::auth()->prefs()->interface->put('zenedit_small_margins', !empty($_POST['zenedit_small_margins']), 'boolean');
+            App::auth()->prefs()->interface->put('zenedit_fullscreen', !empty($_POST['zenedit_fullscreen']), App::userWorkspace()::WS_BOOL);
+            App::auth()->prefs()->interface->put('zenedit_background', (empty($_POST['zenedit_background']) ? '' : $_POST['zenedit_background']), App::userWorkspace()::WS_STRING);
+            App::auth()->prefs()->interface->put('zenedit_small_margins', !empty($_POST['zenedit_small_margins']), App::userWorkspace()::WS_BOOL);
         } catch (Exception $exception) {
             App::error()->add($exception->getMessage());
         }

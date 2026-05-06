@@ -13,12 +13,12 @@
   const browserPrefixes = 'webkit moz o ms khtml'.split(' ');
 
   // check for native support
-  if (typeof document.cancelFullScreen === 'undefined') {
+  if (document.cancelFullScreen === undefined) {
     // check for fullscreen support by vendor prefix
     for (let i = 0, il = browserPrefixes.length; i < il; i++) {
       fullScreenApi.prefix = browserPrefixes[i];
 
-      if (typeof document[`${fullScreenApi.prefix}CancelFullScreen`] !== 'undefined') {
+      if (document[`${fullScreenApi.prefix}CancelFullScreen`] !== undefined) {
         fullScreenApi.supportsFullScreen = true;
         break;
       }

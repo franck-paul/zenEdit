@@ -1,4 +1,4 @@
-/*global jQuery, dotclear, jsToolBar, fullScreenApi */
+/*global jQuery, dotclear, fullScreenApi */
 'use strict';
 
 (() => {
@@ -61,7 +61,7 @@
   }
 
   // export api
-  window.fullScreenApi = fullScreenApi;
+  globalThis.fullScreenApi = fullScreenApi;
 })();
 
 // utilities functions
@@ -93,20 +93,20 @@
 dotclear.ready(() => {
   dotclear.mergeDeep(dotclear, dotclear.getData('zenedit'));
 
-  jsToolBar.prototype.elements.zenEdit = {
+  dotclear.ToolBar.prototype.elements.zenEdit = {
     group: 'editor',
     type: 'button',
     title: 'Zen',
     fn: {},
   };
 
-  jsToolBar.prototype.elements.zenEdit.context = 'post';
-  jsToolBar.prototype.elements.zenEdit.icon = dotclear.zenEdit.icon;
-  jsToolBar.prototype.elements.zenEdit.icon_dark = dotclear.zenEdit.icon_dark;
-  jsToolBar.prototype.elements.zenEdit.fn.wiki = () => dotclear.zenEdit.switch();
-  jsToolBar.prototype.elements.zenEdit.fn.xhtml = () => dotclear.zenEdit.switch();
-  jsToolBar.prototype.elements.zenEdit.fn.wysiwyg = () => dotclear.zenEdit.switch();
-  jsToolBar.prototype.elements.zenEdit.fn.markdown = () => dotclear.zenEdit.switch();
+  dotclear.ToolBar.prototype.elements.zenEdit.context = 'post';
+  dotclear.ToolBar.prototype.elements.zenEdit.icon = dotclear.zenEdit.icon;
+  dotclear.ToolBar.prototype.elements.zenEdit.icon_dark = dotclear.zenEdit.icon_dark;
+  dotclear.ToolBar.prototype.elements.zenEdit.fn.wiki = () => dotclear.zenEdit.switch();
+  dotclear.ToolBar.prototype.elements.zenEdit.fn.xhtml = () => dotclear.zenEdit.switch();
+  dotclear.ToolBar.prototype.elements.zenEdit.fn.wysiwyg = () => dotclear.zenEdit.switch();
+  dotclear.ToolBar.prototype.elements.zenEdit.fn.markdown = () => dotclear.zenEdit.switch();
 
   dotclear.zenEdit.switch = () => {
     const body = document.querySelector('body');
@@ -141,7 +141,7 @@ dotclear.ready(() => {
       dotclear.zenEdit.stack.show();
 
       // Restore toolbar button title
-      jsToolBar.prototype.elements.zenEdit.title = dotclear.msg.zenEdit.show;
+      dotclear.ToolBar.prototype.elements.zenEdit.title = dotclear.msg.zenEdit.show;
       button.setAttribute('title', dotclear.msg.zenEdit.show);
 
       dotclear.zenEdit.zenMode = false;
@@ -203,7 +203,7 @@ dotclear.ready(() => {
     dotclear.zenEdit.stack.hide();
 
     // Change toolbar button title and icon
-    jsToolBar.prototype.elements.zenEdit.title = dotclear.msg.zenEdit.hide;
+    dotclear.ToolBar.prototype.elements.zenEdit.title = dotclear.msg.zenEdit.hide;
     button.setAttribute('title', dotclear.msg.zenEdit.hide);
 
     dotclear.zenEdit.zenMode = true;
@@ -213,5 +213,7 @@ dotclear.ready(() => {
     }
   };
 
-  jsToolBar.prototype.elements.zenEdit.title = dotclear.zenEdit.zenMode ? dotclear.msg.zenEdit.hide : dotclear.msg.zenEdit.show;
+  dotclear.ToolBar.prototype.elements.zenEdit.title = dotclear.zenEdit.zenMode
+    ? dotclear.msg.zenEdit.hide
+    : dotclear.msg.zenEdit.show;
 });

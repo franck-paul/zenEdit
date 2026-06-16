@@ -93,7 +93,11 @@ class BackendBehaviors
         $textures_root = implode(DIRECTORY_SEPARATOR, [$base_path, 'light']);
         if (is_dir($textures_root) && is_readable($textures_root) && ($d = @dir($textures_root)) !== false) {
             while (($entry = $d->read()) !== false) {
-                if ($entry !== '.' && $entry !== '..' && !str_starts_with($entry, '.') && is_readable($textures_root . '/' . $entry)) {
+                if ($entry    !== '.'
+                    && $entry !== '..'
+                    && !str_starts_with($entry, '.')
+                    && is_readable($textures_root . '/' . $entry)
+                ) {
                     $textures_combo_light[substr($entry, 0, -4)] = 'light/' . $entry;
                 }
             }
@@ -107,7 +111,11 @@ class BackendBehaviors
         $textures_root = implode(DIRECTORY_SEPARATOR, [$base_path, 'dark']);
         if (is_dir($textures_root) && is_readable($textures_root) && ($d = @dir($textures_root)) !== false) {
             while (($entry = $d->read()) !== false) {
-                if ($entry !== '.' && $entry !== '..' && !str_starts_with($entry, '.') && is_readable($textures_root . '/' . $entry)) {
+                if ($entry    !== '.'
+                    && $entry !== '..'
+                    && !str_starts_with($entry, '.')
+                    && is_readable($textures_root . '/' . $entry)
+                ) {
                     $textures_combo_dark[substr($entry, 0, -4)] = 'dark/' . $entry;
                 }
             }

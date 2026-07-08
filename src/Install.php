@@ -37,9 +37,9 @@ class Install
         try {
             // Default state is active for fullscreen
             $preferences = App::auth()->prefs();
-            $preferences->interface->put('zenedit_fullscreen', 1, App::userWorkspace()::WS_BOOL, 'Try to activate full screen in zen mode', false, true);
-            $preferences->interface->put('zenedit_background', '', App::userWorkspace()::WS_STRING, 'Background image in zen mode', false, true);
-            $preferences->interface->put('zenedit_small_margins', 0, App::userWorkspace()::WS_BOOL, 'Try to activate full screen in zen mode', false, true);
+            $preferences->get('interface')->put('zenedit_fullscreen', 1, App::userWorkspace()::WS_BOOL, 'Try to activate full screen in zen mode', false, true);
+            $preferences->get('interface')->put('zenedit_background', '', App::userWorkspace()::WS_STRING, 'Background image in zen mode', false, true);
+            $preferences->get('interface')->put('zenedit_small_margins', 0, App::userWorkspace()::WS_BOOL, 'Try to activate full screen in zen mode', false, true);
         } catch (Exception $exception) {
             App::error()->add($exception->getMessage());
         }

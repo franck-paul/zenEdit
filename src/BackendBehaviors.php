@@ -44,9 +44,9 @@ class BackendBehaviors
                 ],
             ],
             'zenEdit' => [
-                'fullScreen'   => App::auth()->prefs()->interface->zenedit_fullscreen,
-                'background'   => App::auth()->prefs()->interface->zenedit_background,
-                'smallMargins' => App::auth()->prefs()->interface->zenedit_small_margins,
+                'fullScreen'   => App::auth()->prefs()->get('interface')->getBool('zenedit_fullscreen'),
+                'background'   => App::auth()->prefs()->get('interface')->getStr('zenedit_background'),
+                'smallMargins' => App::auth()->prefs()->get('interface')->getBool('zenedit_small_margins'),
                 'zenMode'      => false,
                 'icon'         => urldecode((string) App::backend()->page()->getPF(My::id() . '/icon.svg')),
                 'icon_dark'    => urldecode((string) App::backend()->page()->getPF(My::id() . '/icon-dark.svg')),
@@ -60,9 +60,9 @@ class BackendBehaviors
     {
         // Get and store user's prefs for plugin options
         try {
-            App::auth()->prefs()->interface->put('zenedit_fullscreen', !empty($_POST['zenedit_fullscreen']), App::userWorkspace()::WS_BOOL);
-            App::auth()->prefs()->interface->put('zenedit_background', (empty($_POST['zenedit_background']) ? '' : $_POST['zenedit_background']), App::userWorkspace()::WS_STRING);
-            App::auth()->prefs()->interface->put('zenedit_small_margins', !empty($_POST['zenedit_small_margins']), App::userWorkspace()::WS_BOOL);
+            App::auth()->prefs()->get('interface')->put('zenedit_fullscreen', !empty($_POST['zenedit_fullscreen']), App::userWorkspace()::WS_BOOL);
+            App::auth()->prefs()->get('interface')->put('zenedit_background', (empty($_POST['zenedit_background']) ? '' : $_POST['zenedit_background']), App::userWorkspace()::WS_STRING);
+            App::auth()->prefs()->get('interface')->put('zenedit_small_margins', !empty($_POST['zenedit_small_margins']), App::userWorkspace()::WS_BOOL);
         } catch (Exception $exception) {
             App::error()->add($exception->getMessage());
         }
@@ -126,7 +126,7 @@ class BackendBehaviors
         }
 
         // Add fieldset for plugin options
-        $background = is_string($background = App::auth()->prefs()->interface->zenedit_background) ? $background : null;
+        $background = App::auth()->prefs()->get('interface')->getStr('zenedit_background');
 
         // Prepare texture selector
         if (count($textures_combo) > 1) {
@@ -147,8 +147,8 @@ class BackendBehaviors
             $textures = [(new Hidden('zenedit_background', ''))];
         }
 
-        $fullscreen    = is_scalar($fullscreen = App::auth()->prefs()->interface->zenedit_fullscreen)       && (bool) $fullscreen;
-        $small_margins = is_scalar($small_margins = App::auth()->prefs()->interface->zenedit_small_margins) && (bool) $small_margins;
+        $fullscreen    = App::auth()->prefs()->get('interface')->getBool('zenedit_fullscreen', false);
+        $small_margins = App::auth()->prefs()->get('interface')->getBool('zenedit_small_margins');
 
         echo
         (new Fieldset('zenEdit_prefs'))

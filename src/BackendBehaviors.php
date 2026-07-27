@@ -91,7 +91,10 @@ class BackendBehaviors
 
         // Light textures
         $textures_root = implode(DIRECTORY_SEPARATOR, [$base_path, 'light']);
-        if (is_dir($textures_root) && is_readable($textures_root) && ($d = @dir($textures_root)) !== false) {
+        if (is_dir($textures_root)
+            && is_readable($textures_root)
+            && ($d = @dir($textures_root)) !== false
+        ) {
             while (($entry = $d->read()) !== false) {
                 if ($entry    !== '.'
                     && $entry !== '..'
@@ -109,7 +112,10 @@ class BackendBehaviors
 
         // Dark textures
         $textures_root = implode(DIRECTORY_SEPARATOR, [$base_path, 'dark']);
-        if (is_dir($textures_root) && is_readable($textures_root) && ($d = @dir($textures_root)) !== false) {
+        if (is_dir($textures_root)
+            && is_readable($textures_root)
+            && ($d = @dir($textures_root)) !== false
+        ) {
             while (($entry = $d->read()) !== false) {
                 if ($entry    !== '.'
                     && $entry !== '..'

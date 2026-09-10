@@ -21,6 +21,7 @@ use Dotclear\Helper\Html\Form\Fieldset;
 use Dotclear\Helper\Html\Form\Hidden;
 use Dotclear\Helper\Html\Form\Label;
 use Dotclear\Helper\Html\Form\Legend;
+use Dotclear\Helper\Html\Form\Note;
 use Dotclear\Helper\Html\Form\Para;
 use Dotclear\Helper\Html\Form\Select;
 use Dotclear\Helper\Html\Form\Span;
@@ -165,10 +166,9 @@ class BackendBehaviors
                     ->value(1)
                     ->label((new Label(__('Try to activate full screen in editor\'s zen mode'), Label::INSIDE_TEXT_AFTER))),
             ]),
-            (new Para())->items([
-                (new Text(null, __('Your browser may not support this feature or it may be deactivated by the system.')))
-                    ->class(['clear', 'form-note']),
-            ]),
+            (new Note())
+                ->class('form-note')
+                ->text(__('Your browser may not support this feature or it may be deactivated by the system.')),
             ...$textures,   // See above
             (new Para())->items([
                 (new Checkbox('zenedit_small_margins', $small_margins))

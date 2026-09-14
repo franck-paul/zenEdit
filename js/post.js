@@ -126,9 +126,9 @@ dotclear.ready(() => {
       }
 
       // Restore some CSS attributes as before
-      container.style.marginTop = dotclear.zenEdit.prop.container_mt;
-      container.style.marginLeft = dotclear.zenEdit.prop.container_ml;
-      container.style.marginRight = dotclear.zenEdit.prop.container_mr;
+      container.style.marginBlockStart = dotclear.zenEdit.prop.container_mt;
+      container.style.marginInlineStart = dotclear.zenEdit.prop.container_ml;
+      container.style.marginInlineEnd = dotclear.zenEdit.prop.container_mr;
       body.style.color = dotclear.zenEdit.prop.body_tc;
       body.style.backgroundColor = dotclear.zenEdit.prop.body_bc;
       wrapper.style.backgroundColor = dotclear.zenEdit.prop.wrapper_bc;
@@ -162,9 +162,9 @@ dotclear.ready(() => {
       page_bc: page.style.backgroundColor,
       main_bc: main.style.backgroundColor,
       main_bi: main.style.backgroundImage,
-      container_mt: container.style.marginTop,
-      container_ml: container.style.marginLeft,
-      container_mr: container.style.marginRight,
+      container_mt: container.style.marginBlockStart,
+      container_ml: container.style.marginInlineStart,
+      container_mr: container.style.marginInlineEnd,
       hide_mm: wrapper.classList.contains('hide-mm'),
       wrapper_bc: wrapper.style.backgroundColor,
       wrapper_bi: wrapper.style.backgroundImage,
@@ -182,13 +182,13 @@ dotclear.ready(() => {
     }
 
     // Hack some CSS attributes
-    container.style.marginTop = '3em';
+    container.style.marginBlockStart = '3em';
     if (dotclear.zenEdit.smallMargins) {
-      container.style.marginLeft = dotclear.zenEdit.prop.hide_mm ? entry.style.marginRight : '-13em';
-      container.style.marginRight = '0';
+      container.style.marginInlineStart = dotclear.zenEdit.prop.hide_mm ? entry.style.marginInlineEnd : '-13em';
+      container.style.marginInlineEnd = '0';
     } else {
-      container.style.marginLeft = dotclear.zenEdit.prop.hide_mm ? '14.5em' : '1em';
-      container.style.marginRight = '14.5em';
+      container.style.marginInlineStart = dotclear.zenEdit.prop.hide_mm ? '14.5em' : '1em';
+      container.style.marginInlineEnd = '14.5em';
     }
     body.style.color = dotclear.zenEdit.color;
     body.style.backgroundColor = 'rgb(248,248,248)';

@@ -2,7 +2,7 @@
   display: block;
   margin: 1em;
   padding: 0;
-  width: 10em;
-  height: 10em;
+  inline-size: 10em;
+  block-size: 10em;
   background-color: rgb(251, 251, 251);
 }

@@ -3,7 +3,7 @@
 [![Release](https://img.shields.io/github/v/release/franck-paul/zenEdit)](https://github.com/franck-paul/zenEdit/releases)
 [![Date](https://img.shields.io/github/release-date/franck-paul/zenEdit)](https://github.com/franck-paul/zenEdit/releases)
 [![Issues](https://img.shields.io/github/issues/franck-paul/zenEdit)](https://github.com/franck-paul/zenEdit/issues)
-[![License](https://img.shields.io/github/license/franck-paul/zenEdit)](https://github.com/franck-paul/zenEdit/blob/master/LICENSE)
+[![License](https://img.shields.io/github/license/franck-paul/zenEdit)](https://github.com/franck-paul/zenEdit/blob/main/LICENSE)
 
 ## Description
 

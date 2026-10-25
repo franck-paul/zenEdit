@@ -49,9 +49,9 @@ class BackendBehaviors
                 'background'   => App::auth()->prefs()->get('interface')->getStr('zenedit_background'),
                 'smallMargins' => App::auth()->prefs()->get('interface')->getBool('zenedit_small_margins'),
                 'zenMode'      => false,
-                'icon'         => urldecode((string) App::backend()->page()->getPF(My::id() . '/icon.svg')),
-                'icon_dark'    => urldecode((string) App::backend()->page()->getPF(My::id() . '/icon-dark.svg')),
-                'base_url'     => urldecode((string) App::backend()->page()->getPF(My::id() . '/img/background/')),
+                'icon'         => urldecode(App::backend()->page()->getPF(My::id() . '/icon.svg')),
+                'icon_dark'    => urldecode(App::backend()->page()->getPF(My::id() . '/icon-dark.svg')),
+                'base_url'     => urldecode(App::backend()->page()->getPF(My::id() . '/img/background/')),
             ],
         ]) .
         My::jsLoad('post.js');
@@ -75,7 +75,7 @@ class BackendBehaviors
     {
         return
         App::backend()->page()->jsJson('zenedit_prefs', [
-            'base_url' => urldecode((string) App::backend()->page()->getPF(My::id() . '/img/background/')),
+            'base_url' => urldecode(App::backend()->page()->getPF(My::id() . '/img/background/')),
         ]) .
         My::jsLoad('preferences.js') .
         My::cssLoad('style.css');
@@ -148,7 +148,7 @@ class BackendBehaviors
                 (new Span('&nbsp;'))
                     ->id('zenedit_sample')
                     ->class('fieldset')
-                    ->extra('style="background-image:url(' . urldecode((string) App::backend()->page()->getPF(My::id() . '/img/background/' . $background)) . ')"'),
+                    ->extra('style="background-image:url(' . urldecode(App::backend()->page()->getPF(My::id() . '/img/background/' . $background)) . ')"'),
             ];
         } else {
             $textures = [(new Hidden('zenedit_background', ''))];

@@ -18,9 +18,9 @@ if (isset($this) && is_object($this) && method_exists($this, 'registerModule') &
         'zenEdit',
         'Zen mode for dcLegacyEditor',
         'Franck Paul',
-        '8.0',
+        '8.1',
         [
-            'date'        => '2026-08-03T10:17:44+0200',
+            'date'        => '2026-11-07T17:11:15+0100',
             'requires'    => [['core', '2.39']],
             'permissions' => 'My',
             'type'        => 'plugin',
